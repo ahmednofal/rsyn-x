@@ -14,7 +14,7 @@ int main()
         {"targetUtilization" , 0.85},
         {"parms" , "ICCAD15.parm"}
     };
-	session.runReader(format, options);
+    session.runReader(format, options);
 
     std::string writerName = "rsyn.writer";
     std::string defName = "foo.def";
