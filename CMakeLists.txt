@@ -219,3 +219,80 @@ if(ISPD18)
   message("ISPD18 mode is on.")
   target_compile_options(rsyn PUBLIC "-DISPD18_BIN")
 endif()
+
+
+
+##################
+# Begin bullshit #
+##################
+
+###########
+# Targets #
+###########
+set(PATH_RSYNNOSHELL "${CMAKE_CURRENT_SOURCE_DIR}/no_shell/main.cpp")
+list(APPEND SRC_FILES ${PATH_RSYNNOSHELL})
+list(REMOVE_ITEM SRC_FILES "${PATH_X}/src/x/main.cpp")
+add_executable(rsyn_no_shell ${SRC_FILES})
+
+
+#######################
+# Include Directories #
+#######################
+
+target_include_directories(rsyn_no_shell PUBLIC "${PATH_RSYN}/src/rsyn/export")
+
+target_include_directories(rsyn_no_shell PUBLIC "${PATH_RSYN}/src")
+target_include_directories(rsyn_no_shell PUBLIC "${PATH_RSYN}/include")
+target_include_directories(rsyn_no_shell PUBLIC "${PATH_X}/src")
+target_include_directories(rsyn_no_shell PUBLIC "${PATH_X}/include")
+
+##################
+# Compiler Flags #
+##################
+
+target_compile_options(rsyn_no_shell PUBLIC "-O3")
+target_compile_options(rsyn_no_shell PUBLIC "-Wno-unused-result -Wno-format -Wno-return-type -Wno-unused-local-typedefs")
+
+if(${ISPD18_BIN})
+message(STATUS "ISPD18 binary will be generated")
+add_definitions(-DISPD18_BIN=1)
+endif()
+
+#################
+# Linker Flags  #
+#################
+
+target_link_libraries(rsyn_no_shell lef)
+target_link_libraries(rsyn_no_shell def)
+target_link_libraries(rsyn_no_shell emon) # not a typo
+
+# OpenGL
+include_directories(${OPENGL_INCLUDE_DIR})
+target_link_libraries(rsyn_no_shell ${OPENGL_gl_LIBRARY})
+target_link_libraries(rsyn_no_shell ${OPENGL_glu_LIBRARY})
+
+# Boost   
+target_include_directories(rsyn_no_shell PUBLIC ${Boost_INCLUDE_DIR})
+target_link_libraries(rsyn_no_shell ${Boost_LIBRARIES})
+    
+# PNG
+target_include_directories(rsyn_no_shell PUBLIC ${PNG_INCLUDE_DIR})
+target_link_libraries(rsyn_no_shell ${PNG_LIBRARY})
+
+# COIN
+if(COIN_FOUND)
+  target_include_directories(rsyn_no_shell PUBLIC ${COIN_INCLUDE_DIR})
+  target_link_libraries(rsyn_no_shell ${COIN_LIBRARIES})
+endif()
+
+# GLPK
+if(GLPK_FOUND)
+  target_link_libraries(rsyn_no_shell glpk)
+endif()
+
+# Qt5 Widgets for linking
+target_link_libraries(rsyn_no_shell Qt5::Widgets)
+target_link_libraries(rsyn_no_shell Qt5::PrintSupport)
+target_link_libraries(rsyn_no_shell Qt5::OpenGL)
+
+
