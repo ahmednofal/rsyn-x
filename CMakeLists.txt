@@ -16,6 +16,7 @@ message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
 option(ISPD18 "Create an executable for ISPD18 Contest" OFF)
 
 # Find includes in the build directories
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Turn on automatic invocation of the MOC
@@ -51,6 +52,13 @@ set(PATH_QT ${CMAKE_CURRENT_SOURCE_DIR}/rsyn/src/rsyn/qt)
 
 set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Werror=return-type")
 
+IF(CMAKE_COMPILER_IS_GNUCC)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0")
+ENDIF(CMAKE_COMPILER_IS_GNUCC)
+
+SET(CMAKE_CXX_FLAGS "-O0")
+SET(CMAKE_C_FLAGS "-O0")
 ######################
 # Check Dependencies #
 ######################
@@ -81,14 +89,14 @@ find_package(Qt5OpenGL REQUIRED)
 ###############
 # Source Code #
 ###############
-file(GLOB_RECURSE SRC_FILES_RSYN 
-    ${PATH_RSYN}/src/*.cpp 
-    ${PATH_RSYN}/src/*.cc 
+file(GLOB_RECURSE SRC_FILES_RSYN
+    ${PATH_RSYN}/src/*.cpp
+    ${PATH_RSYN}/src/*.cc
     ${PATH_RSYN}/src/*.c)
 
 file(GLOB_RECURSE SRC_FILES_X
-    ${PATH_X}/src/*.cpp 
-    ${PATH_X}/src/*.cc 
+    ${PATH_X}/src/*.cpp
+    ${PATH_X}/src/*.cc
     ${PATH_X}/src/*.c)
 
 set(SRC_FILES ${SRC_FILES_RSYN} ${SRC_FILES_X})
@@ -167,7 +175,7 @@ target_include_directories(rsyn PUBLIC "${PATH_X}/include")
 # Compiler Flags #
 ##################
 
-target_compile_options(rsyn PUBLIC "-O3")
+#target_compile_options(rsyn PUBLIC "-O3")
 target_compile_options(rsyn PUBLIC "-Wno-unused-result -Wno-format -Wno-return-type -Wno-unused-local-typedefs")
 
 if(${ISPD18_BIN})
@@ -188,10 +196,10 @@ include_directories(${OPENGL_INCLUDE_DIR})
 target_link_libraries(rsyn ${OPENGL_gl_LIBRARY})
 target_link_libraries(rsyn ${OPENGL_glu_LIBRARY})
 
-# Boost   
+# Boost
 target_include_directories(rsyn PUBLIC ${Boost_INCLUDE_DIR})
 target_link_libraries(rsyn ${Boost_LIBRARIES})
-    
+
 # PNG
 target_include_directories(rsyn PUBLIC ${PNG_INCLUDE_DIR})
 target_link_libraries(rsyn ${PNG_LIBRARY})

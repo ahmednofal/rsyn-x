@@ -110,6 +110,7 @@ void ISPD2018Reader::populateDesign() {
 } // end method
 
 void ISPD2018Reader::initializeAuxiliarInfrastructure() {
+
 	// Start graphics service...
 	session.startService("rsyn.graphics",{});
 	Graphics *graphics = session.getService("rsyn.graphics");
