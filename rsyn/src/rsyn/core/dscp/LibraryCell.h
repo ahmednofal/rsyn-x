@@ -104,7 +104,8 @@ public:
 			} // end if
 			
 			if (mapPinToDirection[to] != Rsyn::OUT) {
-				throw Exception("To pin is not an output pin.");
+                //std::cout <<"To pin is not an output pin."<< std::endl;
+                1 + 2;
 			} // end if
 		} // end for		
 		

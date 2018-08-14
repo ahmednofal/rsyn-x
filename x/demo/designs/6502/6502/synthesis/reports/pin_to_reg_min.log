@@ -1,0 +1,90 @@
+Vesta static timing analysis, pin-to-register and register-to-pin minimum timing
+
+Top 20 minimum delay paths:
+Path input pin NMI to DFFPOSX1_34/D delay 0.188894 ps
+      0.2 ps  NMI:   -> DFFPOSX1_34/D
+
+Path input pin reset to DFFPOSX1_85/D delay 85.6507 ps
+     12.8 ps  reset:               -> OAI21X1_276/A
+     85.7 ps    _5_: OAI21X1_276/Y -> DFFPOSX1_85/D
+
+Path input pin reset to DFFSR_6/R delay 118.984 ps
+      1.1 ps   reset:           -> INVX4_6/A
+    119.0 ps  _1175_: INVX4_6/Y -> DFFSR_6/R
+
+Path input pin reset to DFFSR_3/R delay 119.062 ps
+      1.1 ps   reset:           -> INVX4_6/A
+    119.1 ps  _1175_: INVX4_6/Y -> DFFSR_3/R
+
+Path input pin reset to DFFSR_1/R delay 119.096 ps
+      1.1 ps   reset:           -> INVX4_6/A
+    119.1 ps  _1175_: INVX4_6/Y -> DFFSR_1/R
+
+Path input pin reset to DFFSR_5/R delay 119.156 ps
+      1.1 ps   reset:           -> INVX4_6/A
+    119.2 ps  _1175_: INVX4_6/Y -> DFFSR_5/R
+
+Path input pin reset to DFFSR_2/R delay 119.224 ps
+      1.1 ps   reset:           -> INVX4_6/A
+    119.2 ps  _1175_: INVX4_6/Y -> DFFSR_2/R
+
+Path input pin reset to DFFSR_4/S delay 119.326 ps
+      1.1 ps   reset:           -> INVX4_6/A
+    119.3 ps  _1175_: INVX4_6/Y -> DFFSR_4/S
+
+Path input pin reset to DFFPOSX1_77/D delay 158.674 ps
+     12.9 ps   reset:               -> OAI21X1_267/A
+     93.9 ps   _526_: OAI21X1_267/Y -> OAI21X1_268/C
+    158.7 ps  _4__0_: OAI21X1_268/Y -> DFFPOSX1_77/D
+
+Path input pin reset to DFFPOSX1_80/D delay 158.899 ps
+     13.0 ps   reset:               -> OAI21X1_273/A
+     94.4 ps   _529_: OAI21X1_273/Y -> OAI21X1_274/C
+    158.9 ps  _4__3_: OAI21X1_274/Y -> DFFPOSX1_80/D
+
+Path input pin reset to DFFPOSX1_79/D delay 158.923 ps
+     12.0 ps   reset:               -> OAI21X1_271/A
+     94.0 ps   _528_: OAI21X1_271/Y -> OAI21X1_272/C
+    158.9 ps  _4__2_: OAI21X1_272/Y -> DFFPOSX1_79/D
+
+Path input pin reset to DFFPOSX1_78/D delay 158.935 ps
+     13.0 ps   reset:               -> OAI21X1_269/A
+     93.8 ps   _527_: OAI21X1_269/Y -> OAI21X1_270/C
+    158.9 ps  _4__1_: OAI21X1_270/Y -> DFFPOSX1_78/D
+
+Path input pin NMI to DFFPOSX1_33/D delay 180.315 ps
+      0.3 ps    NMI:               -> NAND3X1_135/A
+    112.2 ps  _392_: NAND3X1_135/Y -> OAI21X1_198/C
+    180.3 ps    _7_: OAI21X1_198/Y -> DFFPOSX1_33/D
+
+Path input pin reset to DFFPOSX1_68/D delay 189.046 ps
+      1.1 ps   reset:               ->     INVX4_6/A
+    118.3 ps  _1175_:     INVX4_6/Y -> OAI21X1_183/C
+    189.0 ps    _31_: OAI21X1_183/Y -> DFFPOSX1_68/D
+
+Path input pin clk to DFFPOSX1_70/CLK delay 270.941 ps
+      1.4 ps          clk:            ->    BUFX4_22/A
+    270.9 ps  clk_bF_buf4: BUFX4_22/Y -> DFFPOSX1_70/CLK
+
+Path input pin clk to DFFSR_6/CLK delay 271.239 ps
+      1.4 ps          clk:            -> BUFX4_22/A
+    271.2 ps  clk_bF_buf4: BUFX4_22/Y ->  DFFSR_6/CLK
+
+Path input pin clk to DFFPOSX1_110/CLK delay 271.331 ps
+      1.4 ps          clk:            ->     BUFX4_22/A
+    271.3 ps  clk_bF_buf4: BUFX4_22/Y -> DFFPOSX1_110/CLK
+
+Path input pin clk to DFFSR_2/CLK delay 271.355 ps
+      1.4 ps          clk:            -> BUFX4_22/A
+    271.4 ps  clk_bF_buf4: BUFX4_22/Y ->  DFFSR_2/CLK
+
+Path input pin clk to DFFSR_4/CLK delay 271.383 ps
+      1.4 ps          clk:            -> BUFX4_22/A
+    271.4 ps  clk_bF_buf4: BUFX4_22/Y ->  DFFSR_4/CLK
+
+Path input pin clk to DFFSR_1/CLK delay 271.386 ps
+      1.4 ps          clk:            -> BUFX4_22/A
+    271.4 ps  clk_bF_buf4: BUFX4_22/Y ->  DFFSR_1/CLK
+
+-----------------------------------------
+

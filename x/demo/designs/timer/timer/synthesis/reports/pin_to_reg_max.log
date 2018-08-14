@@ -1,0 +1,194 @@
+Vesta static timing analysis, pin-to-register and register-to-pin maximum timing
+
+Top 20 maximum delay paths:
+Path input pin S_STB_I to output pin S_DAT_O[4] delay 1256.8 ps
+      0.1 ps     S_STB_I:              ->   INVX1_48/A
+     59.0 ps       _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps       _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps       _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1006.7 ps       _392_:  AND2X2_12/Y -> AOI22X1_20/D
+   1192.6 ps       _395_: AOI22X1_20/Y ->  NOR2X1_52/B
+   1284.4 ps    _426__4_:  NOR2X1_52/Y ->   BUFX2_14/A
+   1413.9 ps  S_DAT_O[4]:   BUFX2_14/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[1] delay 1255.83 ps
+      0.1 ps        S_STB_I:              ->   INVX1_48/A
+     59.0 ps          _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.4 ps          _368_:  NOR2X1_47/Y ->   INVX1_49/A
+    384.8 ps          _372_:   INVX1_49/Y ->  NOR2X1_48/B
+    577.8 ps          _373_:  NOR2X1_48/Y ->   BUFX4_13/A
+    814.1 ps  _373__bF_buf2:   BUFX4_13/Y ->   INVX1_51/A
+    909.1 ps          _385_:   INVX1_51/Y -> OAI21X1_92/B
+   1025.5 ps          _386_: OAI21X1_92/Y -> AOI21X1_26/C
+   1130.4 ps          _387_: AOI21X1_26/Y -> OAI22X1_16/D
+   1227.1 ps       _426__1_: OAI22X1_16/Y ->   BUFX2_11/A
+   1360.8 ps     S_DAT_O[1]:   BUFX2_11/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[15] delay 1255.19 ps
+      0.1 ps      S_STB_I:              ->   INVX1_48/A
+     59.0 ps        _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps        _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps        _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1006.1 ps        _392_:  AND2X2_12/Y -> AOI22X1_31/D
+   1192.9 ps        _406_: AOI22X1_31/Y ->  NOR2X1_63/B
+   1283.2 ps    _426__15_:  NOR2X1_63/Y ->   BUFX2_25/A
+   1412.3 ps  S_DAT_O[15]:   BUFX2_25/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[3] delay 1255.16 ps
+      0.1 ps     S_STB_I:              ->   INVX1_48/A
+     59.0 ps       _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps       _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps       _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1007.0 ps       _392_:  AND2X2_12/Y -> AOI22X1_19/D
+   1193.3 ps       _394_: AOI22X1_19/Y ->  NOR2X1_51/B
+   1283.2 ps    _426__3_:  NOR2X1_51/Y ->   BUFX2_13/A
+   1412.2 ps  S_DAT_O[3]:   BUFX2_13/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[9] delay 1254.42 ps
+      0.1 ps     S_STB_I:              ->   INVX1_48/A
+     59.0 ps       _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps       _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps       _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1012.5 ps       _392_:  AND2X2_12/Y -> AOI22X1_25/D
+   1192.5 ps       _400_: AOI22X1_25/Y ->  NOR2X1_57/B
+   1282.2 ps    _426__9_:  NOR2X1_57/Y ->   BUFX2_19/A
+   1411.5 ps  S_DAT_O[9]:   BUFX2_19/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[12] delay 1254.34 ps
+      0.1 ps      S_STB_I:              ->   INVX1_48/A
+     59.0 ps        _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps        _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps        _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1007.6 ps        _392_:  AND2X2_12/Y -> AOI22X1_28/D
+   1192.6 ps        _403_: AOI22X1_28/Y ->  NOR2X1_60/B
+   1282.4 ps    _426__12_:  NOR2X1_60/Y ->   BUFX2_22/A
+   1411.4 ps  S_DAT_O[12]:   BUFX2_22/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[13] delay 1254.22 ps
+      0.1 ps      S_STB_I:              ->   INVX1_48/A
+     59.0 ps        _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps        _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps        _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1007.5 ps        _392_:  AND2X2_12/Y -> AOI22X1_29/D
+   1192.7 ps        _404_: AOI22X1_29/Y ->  NOR2X1_61/B
+   1282.3 ps    _426__13_:  NOR2X1_61/Y ->   BUFX2_23/A
+   1411.3 ps  S_DAT_O[13]:   BUFX2_23/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[14] delay 1254.17 ps
+      0.1 ps      S_STB_I:              ->   INVX1_48/A
+     59.0 ps        _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps        _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps        _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1007.3 ps        _392_:  AND2X2_12/Y -> AOI22X1_30/D
+   1192.8 ps        _405_: AOI22X1_30/Y ->  NOR2X1_62/B
+   1282.3 ps    _426__14_:  NOR2X1_62/Y ->   BUFX2_24/A
+   1411.2 ps  S_DAT_O[14]:   BUFX2_24/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[2] delay 1254.01 ps
+      0.1 ps     S_STB_I:              ->   INVX1_48/A
+     59.0 ps       _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps       _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps       _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1007.2 ps       _392_:  AND2X2_12/Y -> AOI22X1_18/D
+   1192.4 ps       _393_: AOI22X1_18/Y ->  NOR2X1_50/B
+   1282.1 ps    _426__2_:  NOR2X1_50/Y ->   BUFX2_12/A
+   1411.1 ps  S_DAT_O[2]:   BUFX2_12/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[5] delay 1253.94 ps
+      0.1 ps     S_STB_I:              ->   INVX1_48/A
+     59.0 ps       _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps       _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps       _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1009.7 ps       _392_:  AND2X2_12/Y -> AOI22X1_21/D
+   1192.4 ps       _396_: AOI22X1_21/Y ->  NOR2X1_53/B
+   1282.0 ps    _426__5_:  NOR2X1_53/Y ->   BUFX2_15/A
+   1411.0 ps  S_DAT_O[5]:   BUFX2_15/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[11] delay 1253.92 ps
+      0.1 ps      S_STB_I:              ->   INVX1_48/A
+     59.0 ps        _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps        _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps        _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1011.6 ps        _392_:  AND2X2_12/Y -> AOI22X1_27/D
+   1192.4 ps        _402_: AOI22X1_27/Y ->  NOR2X1_59/B
+   1282.1 ps    _426__11_:  NOR2X1_59/Y ->   BUFX2_21/A
+   1411.0 ps  S_DAT_O[11]:   BUFX2_21/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[7] delay 1253.8 ps
+      0.1 ps     S_STB_I:              ->   INVX1_48/A
+     59.0 ps       _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps       _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps       _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1010.8 ps       _392_:  AND2X2_12/Y -> AOI22X1_23/D
+   1192.1 ps       _398_: AOI22X1_23/Y ->  NOR2X1_55/B
+   1281.9 ps    _426__7_:  NOR2X1_55/Y ->   BUFX2_17/A
+   1410.9 ps  S_DAT_O[7]:   BUFX2_17/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[6] delay 1253.79 ps
+      0.1 ps     S_STB_I:              ->   INVX1_48/A
+     59.0 ps       _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps       _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps       _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1010.6 ps       _392_:  AND2X2_12/Y -> AOI22X1_22/D
+   1192.4 ps       _397_: AOI22X1_22/Y ->  NOR2X1_54/B
+   1281.9 ps    _426__6_:  NOR2X1_54/Y ->   BUFX2_16/A
+   1410.8 ps  S_DAT_O[6]:   BUFX2_16/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[8] delay 1253.57 ps
+      0.1 ps     S_STB_I:              ->   INVX1_48/A
+     59.0 ps       _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps       _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps       _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1012.3 ps       _392_:  AND2X2_12/Y -> AOI22X1_24/D
+   1192.1 ps       _399_: AOI22X1_24/Y ->  NOR2X1_56/B
+   1281.8 ps    _426__8_:  NOR2X1_56/Y ->   BUFX2_18/A
+   1410.6 ps  S_DAT_O[8]:   BUFX2_18/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[10] delay 1253.47 ps
+      0.1 ps      S_STB_I:              ->   INVX1_48/A
+     59.0 ps        _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.5 ps        _368_:  NOR2X1_47/Y ->  AND2X2_11/A
+    508.9 ps        _377_:  AND2X2_11/Y ->  AND2X2_12/A
+   1012.4 ps        _392_:  AND2X2_12/Y -> AOI22X1_26/D
+   1192.0 ps        _401_: AOI22X1_26/Y ->  NOR2X1_58/B
+   1281.6 ps    _426__10_:  NOR2X1_58/Y ->   BUFX2_20/A
+   1410.5 ps  S_DAT_O[10]:   BUFX2_20/Y -> 
+
+Path input pin S_STB_I to output pin S_DAT_O[0] delay 1175.94 ps
+      0.1 ps        S_STB_I:              ->   INVX1_48/A
+     59.0 ps          _366_:   INVX1_48/Y ->  NOR2X1_47/B
+    259.4 ps          _368_:  NOR2X1_47/Y ->   INVX1_49/A
+    384.8 ps          _372_:   INVX1_49/Y ->  NOR2X1_48/B
+    577.8 ps          _373_:  NOR2X1_48/Y ->   BUFX4_13/A
+    814.1 ps  _373__bF_buf2:   BUFX4_13/Y -> OAI21X1_90/A
+    933.5 ps          _379_: OAI21X1_90/Y -> AOI21X1_25/C
+   1043.5 ps          _380_: AOI21X1_25/Y -> OAI22X1_15/D
+   1138.3 ps       _426__0_: OAI22X1_15/Y ->   BUFX2_10/A
+   1252.2 ps     S_DAT_O[0]:   BUFX2_10/Y -> 
+
+Path input pin S_ADR_I[5] to DFFSR_50/D delay 345.323 ps
+      0.1 ps  S_ADR_I[5]:             -> NOR2X1_12/A
+    109.8 ps        _54_: NOR2X1_12/Y -> NAND2X1_6/B
+    266.2 ps        _57_: NAND2X1_6/Y -> NOR2X1_16/B
+    345.3 ps         _3_: NOR2X1_16/Y ->  DFFSR_50/D
+
+Path input pin S_ADR_I[5] to DFFSR_49/D delay 344.887 ps
+      0.1 ps  S_ADR_I[5]:             -> NOR2X1_12/A
+    109.8 ps        _54_: NOR2X1_12/Y -> NAND2X1_6/B
+    266.2 ps        _57_: NAND2X1_6/Y -> NOR2X1_15/B
+    344.9 ps         _2_: NOR2X1_15/Y ->  DFFSR_49/D
+
+Path input pin S_ADR_I[5] to DFFSR_47/D delay 341.402 ps
+      0.1 ps  S_ADR_I[5]:             -> NOR2X1_12/A
+    109.7 ps        _54_: NOR2X1_12/Y -> NAND2X1_5/B
+    262.3 ps        _55_: NAND2X1_5/Y -> NOR2X1_13/B
+    341.4 ps         _0_: NOR2X1_13/Y ->  DFFSR_47/D
+
+Path input pin S_ADR_I[5] to DFFSR_48/D delay 341.045 ps
+      0.1 ps  S_ADR_I[5]:             -> NOR2X1_12/A
+    109.7 ps        _54_: NOR2X1_12/Y -> NAND2X1_5/B
+    262.4 ps        _55_: NAND2X1_5/Y -> NOR2X1_14/B
+    341.0 ps         _1_: NOR2X1_14/Y ->  DFFSR_48/D
+
+-----------------------------------------
+

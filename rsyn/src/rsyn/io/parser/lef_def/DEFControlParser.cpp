@@ -224,7 +224,7 @@ int defPin(defrCallbackType_e, defiPin *pin, defiUserData userData) {
 
 	defPin.clsName = pin->pinName();
 	defPin.clsNetName = pin->netName();
-	defPin.clsDirection = pin->direction();
+	//defPin.clsDirection = pin->direction();
 	defPin.clsPos[X] = pin->placementX();
 	defPin.clsPos[Y] = pin->placementY();
 	defPin.clsICCADPos = defPin.clsPos;

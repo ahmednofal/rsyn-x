@@ -1,0 +1,4 @@
+Qflow static timing analysis logfile created on Tue Aug 14 15:19:36 EET 2018
+Error:  No file timer.rc, cannot back-annotate delays!
+Premature exit.
+Synthesis flow stopped due to error condition.

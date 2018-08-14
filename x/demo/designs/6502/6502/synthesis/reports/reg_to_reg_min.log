@@ -1,0 +1,126 @@
+Vesta static timing analysis, register-to-register minimum timing
+
+Top 20 minimum delay paths:
+Path DFFPOSX1_46/CLK to DFFPOSX1_46/D delay 269.658 ps
+      3.0 ps  clk_bF_buf10:    BUFX4_16/Y -> DFFPOSX1_46/CLK
+    120.8 ps           clv: DFFPOSX1_46/Q -> OAI21X1_213/C
+    204.6 ps         _417_: OAI21X1_213/Y -> OAI21X1_214/C
+    269.7 ps          _20_: OAI21X1_214/Y -> DFFPOSX1_46/D
+
+Path DFFPOSX1_79/CLK to DFFPOSX1_79/D delay 273.822 ps
+      0.0 ps  clk_bF_buf9:    BUFX4_17/Y -> DFFPOSX1_79/CLK
+    123.6 ps    IRHOLD_2_: DFFPOSX1_79/Q -> OAI21X1_271/C
+    208.5 ps        _528_: OAI21X1_271/Y -> OAI21X1_272/C
+    273.8 ps       _4__2_: OAI21X1_272/Y -> DFFPOSX1_79/D
+
+Path DFFPOSX1_78/CLK to DFFPOSX1_78/D delay 283.638 ps
+      2.2 ps  clk_bF_buf6:    BUFX4_20/Y -> DFFPOSX1_78/CLK
+    133.3 ps    IRHOLD_1_: DFFPOSX1_78/Q -> OAI21X1_269/C
+    218.2 ps        _527_: OAI21X1_269/Y -> OAI21X1_270/C
+    283.6 ps       _4__1_: OAI21X1_270/Y -> DFFPOSX1_78/D
+
+Path DFFPOSX1_82/CLK to DFFPOSX1_82/D delay 284.64 ps
+      2.8 ps  clk_bF_buf6:    BUFX4_20/Y -> DFFPOSX1_82/CLK
+    119.9 ps    IRHOLD_5_: DFFPOSX1_82/Q ->   INVX1_146/A
+    203.0 ps        _531_:   INVX1_146/Y ->   MUX2X1_23/A
+    284.6 ps       _4__5_:   MUX2X1_23/Y -> DFFPOSX1_82/D
+
+Path DFFPOSX1_32/CLK to DFFPOSX1_32/D delay 287.257 ps
+      5.4 ps  clk_bF_buf11:    BUFX4_15/Y -> DFFPOSX1_32/CLK
+    128.1 ps    AXYS_2__7_: DFFPOSX1_32/Q -> NAND2X1_188/A
+    223.1 ps         _558_: NAND2X1_188/Y -> OAI21X1_290/C
+    287.3 ps     _1444__7_: OAI21X1_290/Y -> DFFPOSX1_32/D
+
+Path DFFPOSX1_3/CLK to DFFPOSX1_3/D delay 287.485 ps
+      2.0 ps  clk_bF_buf11:    BUFX4_15/Y ->  DFFPOSX1_3/CLK
+    128.2 ps    AXYS_0__2_:  DFFPOSX1_3/Q -> NAND2X1_169/A
+    223.2 ps         _474_: NAND2X1_169/Y -> OAI21X1_237/C
+    287.5 ps     _1443__2_: OAI21X1_237/Y ->  DFFPOSX1_3/D
+
+Path DFFPOSX1_27/CLK to DFFPOSX1_27/D delay 287.737 ps
+      3.7 ps  clk_bF_buf11:    BUFX4_15/Y -> DFFPOSX1_27/CLK
+    128.4 ps    AXYS_2__2_: DFFPOSX1_27/Q -> NAND2X1_183/A
+    223.6 ps         _553_: NAND2X1_183/Y -> OAI21X1_285/C
+    287.7 ps     _1444__2_: OAI21X1_285/Y -> DFFPOSX1_27/D
+
+Path DFFPOSX1_8/CLK to DFFPOSX1_8/D delay 287.96 ps
+      1.8 ps  clk_bF_buf11:    BUFX4_15/Y ->  DFFPOSX1_8/CLK
+    128.4 ps    AXYS_0__7_:  DFFPOSX1_8/Q -> NAND2X1_174/A
+    223.6 ps         _479_: NAND2X1_174/Y -> OAI21X1_242/C
+    288.0 ps     _1443__7_: OAI21X1_242/Y ->  DFFPOSX1_8/D
+
+Path DFFPOSX1_37/CLK to DFFPOSX1_37/D delay 299.929 ps
+      0.0 ps   clk_bF_buf9:    BUFX4_17/Y -> DFFPOSX1_37/CLK
+    141.0 ps  cond_code_2_: DFFPOSX1_37/Q -> NAND2X1_153/A
+    235.7 ps         _395_: NAND2X1_153/Y -> OAI21X1_201/C
+    299.9 ps       _22__2_: OAI21X1_201/Y -> DFFPOSX1_37/D
+
+Path DFFPOSX1_65/CLK to DFFPOSX1_65/D delay 300.653 ps
+      0.0 ps  clk_bF_buf9:    BUFX4_17/Y -> DFFPOSX1_65/CLK
+    128.6 ps   dst_reg_0_: DFFPOSX1_65/Q ->   INVX1_144/A
+    214.0 ps        _506_:   INVX1_144/Y -> OAI21X1_259/A
+    300.7 ps      _23__0_: OAI21X1_259/Y -> DFFPOSX1_65/D
+
+Path DFFPOSX1_62/CLK to DFFPOSX1_62/D delay 306.27 ps
+      2.1 ps  clk_bF_buf10:    BUFX4_16/Y -> DFFPOSX1_62/CLK
+    135.7 ps       index_y: DFFPOSX1_62/Q ->   MUX2X1_21/B
+    248.9 ps         _488_:   MUX2X1_21/Y -> NAND3X1_143/B
+    306.3 ps          _25_: NAND3X1_143/Y -> DFFPOSX1_62/D
+
+Path DFFPOSX1_77/CLK to DFFPOSX1_77/D delay 325.681 ps
+      3.8 ps  clk_bF_buf6:    BUFX4_20/Y -> DFFPOSX1_77/CLK
+    171.5 ps    IRHOLD_0_: DFFPOSX1_77/Q -> OAI21X1_267/C
+    260.3 ps        _526_: OAI21X1_267/Y -> OAI21X1_268/C
+    325.7 ps       _4__0_: OAI21X1_268/Y -> DFFPOSX1_77/D
+
+Path DFFPOSX1_80/CLK to DFFPOSX1_80/D delay 328.325 ps
+      2.0 ps  clk_bF_buf6:    BUFX4_20/Y -> DFFPOSX1_80/CLK
+    173.8 ps    IRHOLD_3_: DFFPOSX1_80/Q -> OAI21X1_273/C
+    263.3 ps        _529_: OAI21X1_273/Y -> OAI21X1_274/C
+    328.3 ps       _4__3_: OAI21X1_274/Y -> DFFPOSX1_80/D
+
+Path DFFPOSX1_67/CLK to DFFPOSX1_67/D delay 349.399 ps
+      3.2 ps  clk_bF_buf10:    BUFX4_16/Y -> DFFPOSX1_67/CLK
+    127.4 ps      load_reg: DFFPOSX1_67/Q ->   INVX1_120/A
+    258.8 ps         _338_:   INVX1_120/Y -> OAI21X1_265/A
+    349.4 ps          _27_: OAI21X1_265/Y -> DFFPOSX1_67/D
+
+Path DFFPOSX1_34/CLK to DFFPOSX1_33/D delay 359.616 ps
+      3.6 ps  clk_bF_buf11:    BUFX4_15/Y -> DFFPOSX1_34/CLK
+    146.7 ps         NMI_1: DFFPOSX1_34/Q ->   INVX1_129/A
+    223.2 ps         _391_:   INVX1_129/Y -> NAND3X1_135/C
+    282.7 ps         _392_: NAND3X1_135/Y -> OAI21X1_198/C
+    359.6 ps           _7_: OAI21X1_198/Y -> DFFPOSX1_33/D
+
+Path DFFPOSX1_63/CLK to DFFPOSX1_63/D delay 361.652 ps
+      2.7 ps  clk_bF_buf10:    BUFX4_16/Y -> DFFPOSX1_63/CLK
+    185.7 ps    src_reg_0_: DFFPOSX1_63/Q ->   INVX1_141/A
+    274.9 ps         _489_:   INVX1_141/Y -> OAI21X1_251/A
+    361.7 ps       _38__0_: OAI21X1_251/Y -> DFFPOSX1_63/D
+
+Path DFFPOSX1_57/CLK to DFFPOSX1_93/D delay 361.764 ps
+      3.4 ps  clk_bF_buf6:    BUFX4_20/Y -> DFFPOSX1_57/CLK
+    135.3 ps      adc_sbc: DFFPOSX1_57/Q ->   AND2X2_40/B
+    248.9 ps         _14_:   AND2X2_40/Y -> DFFPOSX1_93/D
+
+Path DFFPOSX1_68/CLK to DFFPOSX1_68/D delay 364.058 ps
+      1.6 ps  clk_bF_buf4:    BUFX4_22/Y -> DFFPOSX1_68/CLK
+    188.4 ps          res: DFFPOSX1_68/Q ->   INVX1_117/A
+    277.3 ps        _323_:   INVX1_117/Y -> OAI21X1_183/A
+    364.1 ps         _31_: OAI21X1_183/Y -> DFFPOSX1_68/D
+
+Path DFFPOSX1_61/CLK to DFFPOSX1_61/D delay 369.343 ps
+      2.9 ps  clk_bF_buf10:    BUFX4_16/Y -> DFFPOSX1_61/CLK
+    124.1 ps         store: DFFPOSX1_61/Q ->   INVX1_110/A
+    261.8 ps         _279_:   INVX1_110/Y ->  OAI22X1_40/A
+    369.3 ps          _39_:  OAI22X1_40/Y -> DFFPOSX1_61/D
+
+Path DFFPOSX1_20/CLK to DFFPOSX1_20/D delay 370.78 ps
+      5.4 ps  clk_bF_buf11:    BUFX4_15/Y -> DFFPOSX1_20/CLK
+    146.8 ps    AXYS_3__3_: DFFPOSX1_20/Q ->    INVX1_85/A
+    275.6 ps         _207_:    INVX1_85/Y ->   MUX2X1_30/B
+    370.8 ps     _1445__3_:   MUX2X1_30/Y -> DFFPOSX1_20/D
+
+Design meets minimum hold timing.
+-----------------------------------------
+

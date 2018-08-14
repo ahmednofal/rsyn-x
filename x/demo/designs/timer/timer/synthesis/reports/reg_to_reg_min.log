@@ -1,0 +1,126 @@
+Vesta static timing analysis, register-to-register minimum timing
+
+Top 20 minimum delay paths:
+Path DFFSR_41/CLK to DFFSR_39/D delay 339.642 ps
+      1.0 ps  CLK_I_bF_buf7: BUFX4_23/Y -> DFFSR_41/CLK
+    339.6 ps      s_ack_pre: DFFSR_41/Q -> DFFSR_39/D
+
+Path DFFSR_39/CLK to DFFSR_40/D delay 365.698 ps
+      0.8 ps  CLK_I_bF_buf7: BUFX4_23/Y -> DFFSR_39/CLK
+    365.7 ps      s_ack_dly: DFFSR_39/Q -> DFFSR_40/D
+
+Path DFFSR_45/CLK to output pin S_INT_O delay 476.955 ps
+      1.7 ps  CLK_I_bF_buf3: BUFX4_27/Y -> DFFSR_45/CLK
+    368.8 ps          _427_: DFFSR_45/Q -> BUFX2_43/A
+    477.0 ps        S_INT_O: BUFX2_43/Y -> 
+
+Path DFFSR_4/CLK to output pin TOPULSE_O delay 493.759 ps
+      1.8 ps  CLK_I_bF_buf6: BUFX4_24/Y ->  DFFSR_4/CLK
+    382.9 ps          _428_:  DFFSR_4/Q -> BUFX2_45/A
+    493.8 ps      TOPULSE_O: BUFX2_45/Y -> 
+
+Path DFFSR_51/CLK to DFFSR_42/D delay 613.333 ps
+      0.9 ps    CLK_I_bF_buf7:    BUFX4_23/Y ->    DFFSR_51/CLK
+    418.9 ps  latch_s_data_0_:    DFFSR_51/Q ->    INVX1_55/A
+    524.8 ps            _416_:    INVX1_55/Y -> OAI21X1_115/A
+    613.3 ps           _5__0_: OAI21X1_115/Y ->    DFFSR_42/D
+
+Path DFFSR_40/CLK to output pin S_ACK_O delay 614.388 ps
+      0.6 ps  CLK_I_bF_buf7:  BUFX4_23/Y ->  DFFSR_40/CLK
+    355.8 ps     s_ack_2dly:  DFFSR_40/Q -> NOR2X1_67/A
+    428.8 ps          _425_: NOR2X1_67/Y ->   BUFX2_9/A
+    536.3 ps        S_ACK_O:   BUFX2_9/Y -> 
+
+Path DFFSR_20/CLK to DFFSR_20/D delay 676.359 ps
+      1.2 ps    CLK_I_bF_buf0:    BUFX4_30/Y ->    DFFSR_20/CLK
+    392.0 ps  reg_08_data_15_:    DFFSR_20/Q ->    INVX1_13/A
+    578.6 ps             _75_:    INVX1_13/Y -> OAI21X1_109/A
+    672.4 ps          _6__15_: OAI21X1_109/Y ->    DFFSR_20/D
+
+Path DFFSR_51/CLK to DFFSR_5/D delay 692.22 ps
+      0.9 ps    CLK_I_bF_buf7:   BUFX4_23/Y ->   DFFSR_51/CLK
+    418.7 ps  latch_s_data_0_:   DFFSR_51/Q ->  NAND2X1_9/A
+    617.0 ps             _61_:  NAND2X1_9/Y -> OAI21X1_95/C
+    692.2 ps           _6__0_: OAI21X1_95/Y ->    DFFSR_5/D
+
+Path DFFSR_20/CLK to output pin S_DAT_O[15] delay 786.66 ps
+      1.2 ps    CLK_I_bF_buf0:   BUFX4_30/Y ->   DFFSR_20/CLK
+    392.1 ps  reg_08_data_15_:   DFFSR_20/Q -> AOI22X1_31/A
+    526.9 ps            _406_: AOI22X1_31/Y ->  NOR2X1_63/B
+    602.7 ps        _426__15_:  NOR2X1_63/Y ->   BUFX2_25/A
+    707.3 ps      S_DAT_O[15]:   BUFX2_25/Y -> 
+
+Path DFFSR_64/CLK to DFFSR_18/D delay 815.511 ps
+      0.8 ps     CLK_I_bF_buf5:   BUFX4_25/Y ->   DFFSR_64/CLK
+    391.3 ps  latch_s_data_13_:   DFFSR_64/Q -> NAND2X1_49/A
+    579.5 ps             _319_: NAND2X1_49/Y -> NAND2X1_62/B
+    636.7 ps           _6__13_: NAND2X1_62/Y ->   DFFSR_18/D
+
+Path DFFSR_14/CLK to output pin S_DAT_O[9] delay 824.739 ps
+      0.9 ps   CLK_I_bF_buf5:   BUFX4_25/Y ->   DFFSR_14/CLK
+    487.7 ps  reg_08_data_9_:   DFFSR_14/Q -> AOI22X1_25/A
+    641.2 ps           _400_: AOI22X1_25/Y ->  NOR2X1_57/B
+    719.4 ps        _426__9_:  NOR2X1_57/Y ->   BUFX2_19/A
+    824.7 ps      S_DAT_O[9]:   BUFX2_19/Y -> 
+
+Path DFFSR_18/CLK to output pin S_DAT_O[13] delay 835.221 ps
+      0.3 ps    CLK_I_bF_buf5:   BUFX4_25/Y ->   DFFSR_18/CLK
+    496.8 ps  reg_08_data_13_:   DFFSR_18/Q -> AOI22X1_29/A
+    651.6 ps            _404_: AOI22X1_29/Y ->  NOR2X1_61/B
+    730.1 ps        _426__13_:  NOR2X1_61/Y ->   BUFX2_23/A
+    835.2 ps      S_DAT_O[13]:   BUFX2_23/Y -> 
+
+Path DFFSR_44/CLK to DFFSR_22/D delay 835.732 ps
+      0.6 ps  CLK_I_bF_buf6:    BUFX4_24/Y ->    DFFSR_44/CLK
+    366.5 ps      reg_start:    DFFSR_44/Q ->     INVX2_1/A
+    505.3 ps           _12_:     INVX2_1/Y -> OAI21X1_113/B
+    572.5 ps            _7_: OAI21X1_113/Y ->    DFFSR_22/D
+
+Path DFFSR_52/CLK to DFFSR_6/D delay 862.215 ps
+      0.9 ps    CLK_I_bF_buf6:   BUFX4_24/Y ->   DFFSR_52/CLK
+    383.5 ps  latch_s_data_1_:   DFFSR_52/Q -> NAND2X1_17/A
+    570.0 ps             _96_: NAND2X1_17/Y -> OAI21X1_96/C
+    643.8 ps           _6__1_: OAI21X1_96/Y ->    DFFSR_6/D
+
+Path DFFSR_29/CLK to output pin S_DAT_O[6] delay 865.248 ps
+      0.4 ps        CLK_I_bF_buf4:   BUFX4_26/Y ->   DFFSR_29/CLK
+    523.6 ps  internal_counter_6_:   DFFSR_29/Q -> AOI22X1_22/C
+    682.4 ps                _397_: AOI22X1_22/Y ->  NOR2X1_54/B
+    760.3 ps             _426__6_:  NOR2X1_54/Y ->   BUFX2_16/A
+    865.2 ps           S_DAT_O[6]:   BUFX2_16/Y -> 
+
+Path DFFSR_10/CLK to output pin S_DAT_O[5] delay 867.754 ps
+      0.3 ps   CLK_I_bF_buf4:   BUFX4_26/Y ->   DFFSR_10/CLK
+    523.1 ps  reg_08_data_5_:   DFFSR_10/Q -> AOI22X1_21/A
+    682.9 ps           _396_: AOI22X1_21/Y ->  NOR2X1_53/B
+    762.5 ps        _426__5_:  NOR2X1_53/Y ->   BUFX2_15/A
+    867.8 ps      S_DAT_O[5]:   BUFX2_15/Y -> 
+
+Path DFFSR_53/CLK to DFFSR_7/D delay 874.751 ps
+      0.9 ps    CLK_I_bF_buf6:   BUFX4_24/Y ->   DFFSR_53/CLK
+    429.3 ps  latch_s_data_2_:   DFFSR_53/Q -> NAND2X1_19/A
+    666.3 ps            _113_: NAND2X1_19/Y -> OAI21X1_97/C
+    741.0 ps           _6__2_: OAI21X1_97/Y ->    DFFSR_7/D
+
+Path DFFSR_17/CLK to output pin S_DAT_O[12] delay 884.389 ps
+      0.4 ps    CLK_I_bF_buf5:   BUFX4_25/Y ->   DFFSR_17/CLK
+    536.2 ps  reg_08_data_12_:   DFFSR_17/Q -> AOI22X1_28/A
+    698.7 ps            _403_: AOI22X1_28/Y ->  NOR2X1_60/B
+    779.0 ps        _426__12_:  NOR2X1_60/Y ->   BUFX2_22/A
+    884.4 ps      S_DAT_O[12]:   BUFX2_22/Y -> 
+
+Path DFFSR_54/CLK to DFFSR_21/D delay 903.049 ps
+      1.9 ps    CLK_I_bF_buf6:    BUFX4_24/Y ->    DFFSR_54/CLK
+    455.1 ps  latch_s_data_3_:    DFFSR_54/Q -> OAI21X1_110/A
+    578.5 ps            _412_: OAI21X1_110/Y ->  NAND2X1_63/A
+    628.9 ps            _384_:  NAND2X1_63/Y ->    DFFSR_21/D
+
+Path DFFSR_52/CLK to DFFSR_43/D delay 917.314 ps
+      0.9 ps    CLK_I_bF_buf6:    BUFX4_24/Y ->    DFFSR_52/CLK
+    383.4 ps  latch_s_data_1_:    DFFSR_52/Q ->  NAND2X1_64/A
+    488.4 ps            _418_:  NAND2X1_64/Y -> OAI21X1_116/C
+    554.1 ps            _389_: OAI21X1_116/Y ->    DFFSR_43/D
+
+Design meets minimum hold timing.
+-----------------------------------------
+

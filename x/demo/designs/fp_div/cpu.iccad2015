@@ -1,0 +1,2 @@
+synthesis/timer.rtl.v cpu.sdc osu035_stdcells.lef layout/timer.def osu035_stdcells_Early.lib osu035_stdcells_Late.lib 
+

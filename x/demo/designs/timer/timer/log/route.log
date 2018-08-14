@@ -1,0 +1,20 @@
+Qflow route logfile created on Tue Aug 14 15:19:36 EET 2018
+/usr/local/bin/qrouter: invalid option -- 'n'
+bad switch 63
+/usr/local/bin/qrouter: invalid option -- 'o'
+bad switch 63
+Could not open /usr/local/share/qrouter/timer!
+No netlist file!
+qrouter - maze router by Tim Edwards
+
+usage:  qrouter [-switchs] design_name
+
+switches:
+	-c <file>			Configuration file name if not route.cfg.
+	-v <level>			Verbose output level.
+	-i <file>			Print route names and pitches and exit.
+	-p <name>			Specify global power bus name.
+	-g <name>			Specify global ground bus name.
+
+1.1.54
+Router script ended on Tue Aug 14 15:19:36 EET 2018

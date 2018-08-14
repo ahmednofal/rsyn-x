@@ -1,0 +1,70 @@
+Vesta static timing analysis, pin-to-register and register-to-pin minimum timing
+
+Top 20 minimum delay paths:
+Path input pin S_DAT_I[11] to DFFSR_62/D delay 0.042603 ps
+      0.0 ps  S_DAT_I[11]:   -> DFFSR_62/D
+
+Path input pin S_DAT_I[10] to DFFSR_61/D delay 0.042603 ps
+      0.0 ps  S_DAT_I[10]:   -> DFFSR_61/D
+
+Path input pin S_DAT_I[6] to DFFSR_57/D delay 0.042603 ps
+      0.0 ps  S_DAT_I[6]:   -> DFFSR_57/D
+
+Path input pin S_DAT_I[5] to DFFSR_56/D delay 0.042603 ps
+      0.0 ps  S_DAT_I[5]:   -> DFFSR_56/D
+
+Path input pin S_DAT_I[2] to DFFSR_53/D delay 0.047847 ps
+      0.0 ps  S_DAT_I[2]:   -> DFFSR_53/D
+
+Path input pin S_DAT_I[8] to DFFSR_59/D delay 0.051399 ps
+      0.1 ps  S_DAT_I[8]:   -> DFFSR_59/D
+
+Path input pin S_DAT_I[1] to DFFSR_52/D delay 0.051691 ps
+      0.1 ps  S_DAT_I[1]:   -> DFFSR_52/D
+
+Path input pin S_DAT_I[12] to DFFSR_63/D delay 0.053515 ps
+      0.1 ps  S_DAT_I[12]:   -> DFFSR_63/D
+
+Path input pin S_DAT_I[14] to DFFSR_65/D delay 0.053663 ps
+      0.1 ps  S_DAT_I[14]:   -> DFFSR_65/D
+
+Path input pin S_DAT_I[4] to DFFSR_55/D delay 0.053663 ps
+      0.1 ps  S_DAT_I[4]:   -> DFFSR_55/D
+
+Path input pin S_DAT_I[7] to DFFSR_58/D delay 0.055872 ps
+      0.1 ps  S_DAT_I[7]:   -> DFFSR_58/D
+
+Path input pin S_DAT_I[15] to DFFSR_66/D delay 0.056264 ps
+      0.1 ps  S_DAT_I[15]:   -> DFFSR_66/D
+
+Path input pin S_DAT_I[13] to DFFSR_64/D delay 0.056264 ps
+      0.1 ps  S_DAT_I[13]:   -> DFFSR_64/D
+
+Path input pin S_DAT_I[3] to DFFSR_54/D delay 0.06493 ps
+      0.1 ps  S_DAT_I[3]:   -> DFFSR_54/D
+
+Path input pin S_DAT_I[9] to DFFSR_60/D delay 0.066875 ps
+      0.1 ps  S_DAT_I[9]:   -> DFFSR_60/D
+
+Path input pin S_DAT_I[0] to DFFSR_51/D delay 0.098672 ps
+      0.1 ps  S_DAT_I[0]:   -> DFFSR_51/D
+
+Path input pin S_WE_I to DFFSR_46/D delay 116.452 ps
+      0.1 ps  S_WE_I:             -> NAND2X1_7/A
+     62.8 ps    _58_: NAND2X1_7/Y ->  INVX1_10/A
+    116.5 ps    _10_:  INVX1_10/Y ->  DFFSR_46/D
+
+Path input pin S_STB_I to DFFSR_41/D delay 126.994 ps
+      0.1 ps  S_STB_I:            -> AND2X2_2/A
+    127.0 ps     _11_: AND2X2_2/Y -> DFFSR_41/D
+
+Path input pin CLK_I to DFFSR_16/CLK delay 162.375 ps
+      0.4 ps          CLK_I:            -> BUFX4_29/A
+    162.4 ps  CLK_I_bF_buf1: BUFX4_29/Y -> DFFSR_16/CLK
+
+Path input pin CLK_I to DFFSR_22/CLK delay 162.39 ps
+      7.3 ps          CLK_I:            -> BUFX4_30/A
+    162.4 ps  CLK_I_bF_buf0: BUFX4_30/Y -> DFFSR_22/CLK
+
+-----------------------------------------
+

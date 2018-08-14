@@ -1,0 +1,6 @@
+Qflow synthesis logfile created on Tue Aug 14 01:03:10 EET 2018
+Running yosys for verilog parsing and synthesis
+/usr/local/bin/yosys: Command not found.
+outputprep failure:  No file cpu_mapped.blif.
+Premature exit.
+Synthesis flow stopped due to error condition.

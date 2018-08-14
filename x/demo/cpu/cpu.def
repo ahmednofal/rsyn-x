@@ -2179,155 +2179,117 @@ END COMPONENTS
 PINS 38 ;
 - clk + NET clk
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 23360.0 46400.0 ) N ;
 - reset + NET reset
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 24640.0 46400.0 ) N ;
 - DI_0_ + NET DI_0_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 23200.0 -200.0 ) N ;
 - DI_1_ + NET DI_1_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 22720.0 -200.0 ) N ;
 - DI_2_ + NET DI_2_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 46880.0 -200.0 ) N ;
 - DI_3_ + NET DI_3_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 46080.0 46400.0 ) N ;
 - DI_4_ + NET DI_4_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 47680.0 -200.0 ) N ;
 - DI_5_ + NET DI_5_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 48800.0 -200.0 ) N ;
 - DI_6_ + NET DI_6_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 45120.0 -200.0 ) N ;
 - DI_7_ + NET DI_7_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 18240.0 -200.0 ) N ;
 - IRQ + NET IRQ
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 22400.0 46400.0 ) N ;
 - NMI + NET NMI
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 17120.0 46400.0 ) N ;
 - RDY + NET RDY
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION INPUT
   + PLACED ( 12320.0 -200.0 ) N ;
 - AB_0_ + NET AB_0_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 27200.0 ) N ;
 - AB_1_ + NET AB_1_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 29200.0 ) N ;
 - AB_2_ + NET AB_2_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 26000.0 ) N ;
 - AB_3_ + NET AB_3_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 27600.0 ) N ;
 - AB_4_ + NET AB_4_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 21600.0 ) N ;
 - AB_5_ + NET AB_5_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 25200.0 ) N ;
 - AB_6_ + NET AB_6_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 31200.0 ) N ;
 - AB_7_ + NET AB_7_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 23200.0 ) N ;
 - AB_8_ + NET AB_8_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 32640.0 46400.0 ) N ;
 - AB_9_ + NET AB_9_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 49600.0 -200.0 ) N ;
 - AB_10_ + NET AB_10_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 21200.0 ) N ;
 - AB_11_ + NET AB_11_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 1200.0 ) N ;
 - AB_12_ + NET AB_12_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 46400.0 -200.0 ) N ;
 - AB_13_ + NET AB_13_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 3200.0 ) N ;
 - AB_14_ + NET AB_14_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 45200.0 ) N ;
 - AB_15_ + NET AB_15_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 45600.0 -200.0 ) N ;
 - DO_0_ + NET DO_0_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 40640.0 46400.0 ) N ;
 - DO_1_ + NET DO_1_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 44320.0 -200.0 ) N ;
 - DO_2_ + NET DO_2_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 39360.0 46400.0 ) N ;
 - DO_3_ + NET DO_3_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 45600.0 ) N ;
 - DO_4_ + NET DO_4_
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 45600.0 46400.0 ) N ;
 - DO_5_ + NET DO_5_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 25600.0 ) N ;
 - DO_6_ + NET DO_6_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 28000.0 ) N ;
 - DO_7_ + NET DO_7_
   + LAYER metal3 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 63520.0 31600.0 ) N ;
 - WE + NET WE
   + LAYER metal2 ( 0 0 ) ( 1 1 )
-  + DIRECTION OUTPUT
   + PLACED ( 29600.0 46400.0 ) N ;
 END PINS
 
