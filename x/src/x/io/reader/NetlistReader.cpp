@@ -20,16 +20,16 @@ bool NetlistReader::load(const Rsyn::Json &options)
     // lazy stitching
     setNetlistPath(path + netlistFile);
     setLefPath(path + lefFile);
-    build();
+    loadAll();
 
     return true;
 }
 
 
-void NetlistReader::build()
+void NetlistReader::loadAll()
 {
-    buildLibrary();
-    buildDesign();
+    loadlib();
+    loadDesign();
 }
 
 
@@ -45,7 +45,7 @@ void NetlistReader::setLefPath(std::string path)
 }
 
 
-void NetlistReader::buildDesign()
+void NetlistReader::loadDesign()
 {
     Stepwatch watchParsingVerilog("Parsing Verilog");
 	Legacy::Design verilogDesignDescriptor;
@@ -57,7 +57,7 @@ void NetlistReader::buildDesign()
 }
 
 
-void NetlistReader::buildLibrary()
+void NetlistReader::loadLib()
 {
 	LefDscp lefDscp;
 	LEFControlParser lefParser;
