@@ -5,9 +5,12 @@
 
 namespace Rsyn {
 
-NetlistReader::NetlistReader()
+
+DefDscp defaultDefDscp()
 {
-    mDesign = mSession.getDesign();
+    DefDscp defDscp;
+    defDscp.clsDatabaseUnits = 1;
+    return defDscp;
 }
 
 
@@ -17,6 +20,8 @@ bool NetlistReader::load(const Rsyn::Json &options)
     std::string netlistFile = options.value("netlist", "");
     std::string lefFile = options.value("lef", "");
 
+    this->mSession = mSession;
+    mDesign = mSession.getDesign();
     // lazy stitching
     setNetlistPath(path + netlistFile);
     setLefPath(path + lefFile);
@@ -28,9 +33,18 @@ bool NetlistReader::load(const Rsyn::Json &options)
 
 void NetlistReader::loadAll()
 {
-    loadlib();
+    loadLib();
     loadDesign();
+
+    Rsyn::Json physicalOptions;
+	mSession.startService("rsyn.physical", physicalOptions);
+    DefDscp defDscp = defaultDefDscp();
+    mSession.getPhysicalDesign().loadLibrary(lefDscp);
+    mSession.getPhysicalDesign().loadDesign(defDscp);
+	mSession.getPhysicalDesign().updateAllNetBounds(false);	
 }
+
+
 
 
 void NetlistReader::setNetlistPath(std::string path)
@@ -59,7 +73,6 @@ void NetlistReader::loadDesign()
 
 void NetlistReader::loadLib()
 {
-	LefDscp lefDscp;
 	LEFControlParser lefParser;
 	Stepwatch watchParsingLef("Parsing LEF");
 	lefParser.parseLEF(mLefPath, lefDscp);
@@ -68,4 +81,9 @@ void NetlistReader::loadLib()
 	watchParsingLef.finish();
 }
 
+
+void NetlistReader::loadDefaults()
+{
+
+}
 }
