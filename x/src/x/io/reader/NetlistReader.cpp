@@ -2,14 +2,16 @@
 #include "rsyn/util/Stepwatch.h"
 #include "rsyn/io/parser/lef_def/LEFControlParser.h"
 #include "rsyn/io/parser/verilog/SimplifiedVerilogReader.h"
+#include "x/io/reader/DefaultDef.h"
 
 namespace Rsyn {
 
 
 DefDscp defaultDefDscp()
 {
-    DefDscp defDscp;
-    defDscp.clsDatabaseUnits = 1;
+    DefaultDef defaultDefDscp;
+    DefDscp defDscp = defaultDefDscp.getDscp();
+    
     return defDscp;
 }
 
@@ -38,10 +40,11 @@ void NetlistReader::loadAll()
 
     Rsyn::Json physicalOptions;
 	mSession.startService("rsyn.physical", physicalOptions);
+    physicalOptions["clsEnablePhysicalPins"] = true;
     DefDscp defDscp = defaultDefDscp();
     mSession.getPhysicalDesign().loadLibrary(lefDscp);
     mSession.getPhysicalDesign().loadDesign(defDscp);
-	mSession.getPhysicalDesign().updateAllNetBounds(false);	
+	// mSession.getPhysicalDesign().updateAllNetBounds(false);	
 }
 
 
