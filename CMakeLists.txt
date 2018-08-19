@@ -20,6 +20,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Turn on automatic invocation of the MOC
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_BUILD_TYPE Debug)
 
 # Project's name
 project(rsyn)
@@ -167,7 +168,7 @@ target_include_directories(rsyn PUBLIC "${PATH_X}/include")
 # Compiler Flags #
 ##################
 
-target_compile_options(rsyn PUBLIC "-O3")
+# target_compile_options(rsyn PUBLIC "-O3")
 target_compile_options(rsyn PUBLIC "-Wno-unused-result -Wno-format -Wno-return-type -Wno-unused-local-typedefs")
 
 if(${ISPD18_BIN})

@@ -1,0 +1,3 @@
+open "verilog" {"netlist" : "/home/karim/rsyn-x/x/demo/simple/simple.v", "lef" : "/home/karim/rsyn-x/x/demo/simple/simple.lef"};
+start "rsyn.writer";
+writeDEF;
