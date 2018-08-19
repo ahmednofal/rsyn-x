@@ -31,7 +31,9 @@ void PrimitiveFloorplanner::setFloorplanRatio(float ratio )
     mFloorplanRatio = ratio;
 }
 
-
+/* 1) Calculate the total cells area using information from the Verilog netlist and/or the LEF/Lib : Done */
+/* 2) using the utilization find the floor plan area : Done */
+/* 3) From the area, AR and the site dimensions ===> get the width and the height : this not sure how it is done */
 void PrimitiveFloorplanner::create()
 {
     mFloorplanArea = mCellsArea / mUtilization;
