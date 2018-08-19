@@ -4,23 +4,21 @@
 #define PRIMITIVE_FLOORPLANNER_OPTO_EXT_H
 
 #include <Rsyn/Session>
-#include "rsyn/phy/PhysicalDesign.h"
-#include "rsyn/phy/util/DefDescriptors.h"
-#include "rsyn/util/dbu.h"
-/* namespace Rsyn { */
-/* class Timer; */
-/* class Writer; */
-/* } // end namespace */
+#include <Rsyn/PhysicalDesign>
 
+/* class PhysicalDieDataWrapper : public Rsyn::PhysicalDieData{ */
+/* public: */
+/*     bool setArea(double height, double width); */
 
-class PrimitiveFloorplanner : public Rsyn::Process {
+/* }; */
+class PrimitiveFloorplanner : public Rsyn::Process, protected Rsyn::Proxy<Rsyn::PhysicalDesign>{
+
 public:
-	
 	virtual bool run(const Rsyn::Json &params);
     PrimitiveFloorplanner();
     void create();
-    void setUtilization(float utilization = 0.86);
-    void setFloorplanRatio(float ratio = 1);
+    void setUtilization(double utilization = 0.86);
+    void setFloorplanRatio(double heightPart = 1, double widthPart = 1);
 
 private:
     double coreWidth();
@@ -31,18 +29,23 @@ private:
 	Rsyn::Session mSession;
 	Rsyn::Module mModule;
     Rsyn::PhysicalSite  mCoreSite;
+    Rsyn::PhysicalDieData mPhysicalDieData;
+    Rsyn::PhysicalDie mPhysicalDie;
     int   mRowCount;
     int   mSiteCount;
-    float mSiteWidth;
-    float mSiteHeight;
-    float mSiteRatio;
-    float mRowRatio;
-    float mChipArea;
-    float mFloorplanArea;
-
-    float mUtilization;
-    float mFloorplanRatio;
-    float mCellsArea;
+    double mSiteWidth;
+    double mSiteHeight;
+    double mSiteRatio;
+    double mRowRatio;
+    double mChipArea;
+    double mFloorplanArea;
+    double mCoreWidth;
+    double mCoreHeight;
+    double mUtilization;
+    double mFloorplanRatio;
+    double mHeightPart;
+    double mWidthPart;
+    double mCellsArea;
 
 }; // end class
 

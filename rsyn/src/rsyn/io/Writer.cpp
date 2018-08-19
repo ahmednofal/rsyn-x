@@ -323,6 +323,7 @@ void Writer::writeFullDEF(string filename) {
 		defRow.clsSite = phRow.getSiteName();
 		defRow.clsOrigin = phRow.getOrigin();
 		defRow.clsStepX = phRow.getStep(X);
+        std::cout << "clsStepX : " << defRow.clsStepX << std::endl;
 		defRow.clsStepY = 0; //phRow.getStep(Y); // Assuming all Y steps are 0
 		defRow.clsNumX = phRow.getNumSites(X);
 		defRow.clsNumY = phRow.getNumSites(Y);

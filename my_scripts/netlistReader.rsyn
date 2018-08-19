@@ -1,3 +1,4 @@
-open "verilog" {"netlist" : "/home/karim/rsyn-x/x/demo/simple/simple.v", "lef" : "/home/karim/rsyn-x/x/demo/simple/simple.lef"};
+open "verilog" {"netlist" : "simple.v", "lef" : "simple.lef"};
 start "rsyn.writer";
+start "ext.PrimitiveFloorplanner";
 writeDEF;

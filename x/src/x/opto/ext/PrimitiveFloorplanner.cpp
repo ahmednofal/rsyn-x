@@ -2,7 +2,7 @@
 bool PrimitiveFloorplanner::run(const Rsyn::Json &params)
 {
     setUtilization(0.9);
-    setFloorplanRatio(1);
+    setFloorplanRatio(1,1);
     create();
     return true;
 }
@@ -20,15 +20,15 @@ PrimitiveFloorplanner::PrimitiveFloorplanner() :
 }
 
 
-void PrimitiveFloorplanner::setUtilization(float utilization )
+void PrimitiveFloorplanner::setUtilization(double utilization )
 {
     mUtilization = utilization;
 }
 
 
-void PrimitiveFloorplanner::setFloorplanRatio(float ratio )
+void PrimitiveFloorplanner::setFloorplanRatio(double heightPart, double widthPart)
 {
-    mFloorplanRatio = ratio;
+    mFloorplanRatio = heightPart/widthPart;
 }
 
 /* 1) Calculate the total cells area using information from the Verilog netlist and/or the LEF/Lib : Done */
@@ -41,6 +41,8 @@ void PrimitiveFloorplanner::create()
     mRowRatio = mSiteRatio / mFloorplanRatio;
     mRowCount = ceil(sqrt(mFloorplanArea / (mRowRatio * mSiteHeight * mSiteWidth)));
     mSiteCount = ceil(mRowCount * mRowRatio);
+    mPhysicalDieData.clsBounds = Bounds(0, 0, coreWidth(), coreHeight());
+    mRsynPhysicalDesign.data->clsPhysicalDie = mPhysicalDie(mPhysicalDieData);
     for (int i = 0; i < mRowCount; ++i) {
         /* Point rowOrigin = Point(0, mSiteHeight * i); */
         DefRowDscp rowDscp;
@@ -83,19 +85,18 @@ double PrimitiveFloorplanner::cellsArea()
     return area;
     
 }
-/* double PrimitiveFloorplanner::coreWidth() */
-/* { */
-/*     double width = 0; */
-/*     for (Rsyn::Instance instance : module.allInstances()) */ 
-/*     { */
-/*         if (instance.getType() != Rsyn::CELL) */
-/*             continue; */
-/*         Rsyn::PhysicalLibraryCell &phLibCell = mRsynPhysicalDesign.getPhysicalLibraryCell(instance.asCell()); */
-/*         width += phLibCell.getWidth(); */
-/*     } */
-/*     return width; */
-/* } */
-/* double PrimitiveFloorplanner::coreHeight() */
-/* { */
+double PrimitiveFloorplanner::coreWidth()
+{
+    double x = sqrt(mFloorplanArea / (mHeightPart * mWidthPart));
+    mCoreWidth = x * mWidthPart;
 
-/* } */
+    return mCoreWidth;
+}
+double PrimitiveFloorplanner::coreHeight()
+{
+    double x = sqrt(mFloorplanArea / (mHeightPart * mWidthPart));
+    mCoreHeight = x * mHeightPart;
+
+    return mCoreHeight;
+
+}

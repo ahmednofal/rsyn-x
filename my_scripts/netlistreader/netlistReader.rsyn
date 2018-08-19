@@ -1,0 +1,4 @@
+open "verilog" {"netlist" : "/simple.v", "lef" : "/simple.lef"};
+start "rsyn.writer";
+run "ext.PrimitiveFloorplanner";
+writeDEF;

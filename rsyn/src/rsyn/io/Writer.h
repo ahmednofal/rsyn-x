@@ -20,6 +20,7 @@
 #include <Rsyn/PhysicalDesign>
 #include "rsyn/session/Service.h"
 #include <Rsyn/Session>
+#include <iostream>
 
 namespace Rsyn {
 class PhysicalService;
