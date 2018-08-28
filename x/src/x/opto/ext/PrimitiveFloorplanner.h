@@ -29,8 +29,7 @@ private:
 	Rsyn::Session mSession;
 	Rsyn::Module mModule;
     Rsyn::PhysicalSite  mCoreSite;
-    Rsyn::PhysicalDieData mPhysicalDieData;
-    Rsyn::PhysicalDie mPhysicalDie;
+    Rsyn::PhysicalDieData *mPhysicalDieData = new Rsyn::PhysicalDieData();
     int   mRowCount;
     int   mSiteCount;
     double mSiteWidth;
