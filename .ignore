@@ -1,3 +1,9 @@
 tags
+<<<<<<< HEAD
 rsyn/install/html/Chart.bundle.min.js
 .min.js
+=======
+*.min.js
+rsyn/install/html/Chart.bundle.min.js
+
+>>>>>>> master
