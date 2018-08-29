@@ -715,21 +715,6 @@ inline void PhysicalDesign::unregisterObserver(PhysicalDesignObserver *observer)
 inline void PhysicalDesign::setDieArea()
 {
 
-/* double PrimitiveFloorplanner::coreWidth() */
-/* { */
-/*     double x = sqrt(mFloorplanArea / (mHeightPart + mWidthPart)); */
-/*     mCoreWidth = x * mWidthPart; */
-
-/*     return mCoreWidth; */
-/* } */
-/* double PrimitiveFloorplanner::coreHeight() */
-/* { */
-/*     double x = sqrt(mFloorplanArea / (mHeightPart + mWidthPart)); */
-/*     mCoreHeight = x * mHeightPart; */
-
-/*     return mCoreHeight; */
-
-/* } */
 	/* return PhysicalDie(&data->clsPhysicalDie); */
 // Count number of sites * site width + number of steps * step width  = row width = core width
 // Counter number of rows * site height = core Height
@@ -738,13 +723,5 @@ inline void PhysicalDesign::setDieArea()
     double rowsWidth = rowsArea/rowsHeight;
     Bounds newDieArea(0,0, rowsHeight, rowsWidth);
     data->clsPhysicalDie.clsBounds = newDieArea;
-/* inline std::size_t PhysicalDesign::getNumRows() const { */
-
-
-
-/*     &data->clsPhysicalDie(dieBounds); */
-/*     /1* mPhysicalDieData->clsBounds = Bounds(0, 0, coreWidth(), coreHeight()); *1/ */
-/*     Rsyn::PhysicalDie physicalDie(mPhysicalDieData); */
-/*     mRsynPhysicalDesign->data->clsPhysicalDie = physicalDie; */
 }
 } // end namespace 
