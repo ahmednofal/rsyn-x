@@ -41,9 +41,9 @@ void PrimitiveFloorplanner::create()
     mRowRatio = mSiteRatio / mFloorplanRatio;
     mRowCount = ceil(sqrt(mFloorplanArea / (mRowRatio * mSiteHeight * mSiteWidth)));
     mSiteCount = ceil(mRowCount * mRowRatio);
-    mPhysicalDieData->clsBounds = Bounds(0, 0, coreWidth(), coreHeight());
-    Rsyn::PhysicalDie physicalDie(mPhysicalDieData);
-    mRsynPhysicalDesign->data->clsPhysicalDie = physicalDie;
+    /* mPhysicalDieData->clsBounds = Bounds(0, 0, coreWidth(), coreHeight()); */
+    /* Rsyn::PhysicalDie physicalDie(mPhysicalDieData); */
+    /* mRsynPhysicalDesign->data->clsPhysicalDie = physicalDie; */
     for (int i = 0; i < mRowCount; ++i) {
         /* Point rowOrigin = Point(0, mSiteHeight * i); */
         DefRowDscp rowDscp;
@@ -59,6 +59,7 @@ void PrimitiveFloorplanner::create()
         rowDscp.clsStepY = 0;
         mRsynPhysicalDesign.addPhysicalRow(rowDscp);
     }
+    mRsynPhysicalDesign.setDieArea();
 }
 
 

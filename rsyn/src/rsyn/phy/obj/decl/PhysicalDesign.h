@@ -269,7 +269,7 @@ public:
 	//! @comment Given a layer is possible to get all vias which connect to the bottom or top routing layers.
 	Rsyn::LayerViaManager getLayerViaManager() const;
 
-protected:
+public:
 	//! @brief initializes the Rsyn::PhysicalSite objects into Rsyn::PhysicalDesign.
 	void addPhysicalSite(const LefSiteDscp & site);
 	//! @brief initializes the Rsyn::PhysicalLayer objects into Rsyn::PhysicalDesign.

@@ -718,10 +718,12 @@ inline void PhysicalDesign::setDieArea()
 	/* return PhysicalDie(&data->clsPhysicalDie); */
 // Count number of sites * site width + number of steps * step width  = row width = core width
 // Counter number of rows * site height = core Height
+    double rowsNum = getNumRows();
+    double rowHeight = getRowHeight();
     double rowsHeight = getNumRows() * getRowHeight();
     double rowsArea = getArea(PHYSICAL_PLACEABLE);
     double rowsWidth = rowsArea/rowsHeight;
-    Bounds newDieArea(0,0, rowsHeight, rowsWidth);
+    Bounds newDieArea(0,0, rowsHeight, rowsWidth); 
     data->clsPhysicalDie.clsBounds = newDieArea;
 }
 } // end namespace 

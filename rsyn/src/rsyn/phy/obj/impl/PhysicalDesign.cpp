@@ -48,7 +48,8 @@ void PhysicalDesign::loadLibrary(const LefDscp & library) {
 			} // end if 
 		} // end if-else
 	} // end if 
-
+    // setDESIGN_DBU
+    data->clsDBUs[DESIGN_DBU] = library.clsLefUnitsDscp.clsDatabase;
 	// Initializing physical sites
 	data->clsPhysicalSites.reserve(library.clsLefSiteDscps.size());
 	for (const LefSiteDscp & lefSite : library.clsLefSiteDscps) {
@@ -96,7 +97,7 @@ void PhysicalDesign::loadDesign(const DefDscp & design) {
 	data->clsLoadDesign = true;
 
 	// Adding Library cell to Physical Layer
-	data->clsDBUs[DESIGN_DBU] = design.clsDatabaseUnits;
+	/* data->clsDBUs[DESIGN_DBU] = design.clsDatabaseUnits; */
 	data->clsPhysicalDie.clsBounds = design.clsDieBounds;
 
 	if (getDatabaseUnits(LIBRARY_DBU) % getDatabaseUnits(DESIGN_DBU) != 0) {

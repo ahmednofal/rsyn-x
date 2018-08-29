@@ -11,7 +11,7 @@
 /*     bool setArea(double height, double width); */
 
 /* }; */
-class PrimitiveFloorplanner : public Rsyn::Process, protected Rsyn::Proxy<Rsyn::PhysicalDesign>{
+class PrimitiveFloorplanner : public Rsyn::Process{
 
 public:
 	virtual bool run(const Rsyn::Json &params);
