@@ -552,6 +552,15 @@ inline void PhysicalDesign::placeCell(Rsyn::PhysicalCell physicalCell, const DBU
 	// Notify observers.
 	if (moved) {
 		physicalCell->clsInstance->clsBounds.moveTo(x, y);
+        // Bug fix, push to main repo, rsynx
+        physicalCell.data->clsPlaced = true;
+        try{
+        Rsyn::PhysicalRow phRow = getCellRow(physicalCell);
+        orient = phRow.getSiteOrientation();
+        }catch (std::logic_error le)
+        {
+            std::cout << le.what() << std::endl;
+        }
 		if (orient != ORIENTATION_INVALID) {
 			physicalCell->clsInstance->clsOrientation = orient;
 		} // end if 
@@ -725,5 +734,19 @@ inline void PhysicalDesign::setDieArea()
     double rowsWidth = rowsArea/rowsHeight;
     Bounds newDieArea(0,0, rowsHeight, rowsWidth); 
     data->clsPhysicalDie.clsBounds = newDieArea;
+}
+inline PhysicalRow PhysicalDesign::getCellRow(Rsyn::PhysicalCell phCell)
+{
+    DBUxy cellPos = phCell.getPosition();
+    for (Rsyn::PhysicalRow phRow : allPhysicalRows()) {
+        Bounds phRowBounds = phRow.getBounds();
+        if (phRowBounds.inside(cellPos))
+        {
+            return phRow;
+        }
+        
+    }
+    throw std::logic_error("ERROR: This cell is not within any physical rows. Are you sure it was placed");
+    return PhysicalRow();
 }
 } // end namespace 

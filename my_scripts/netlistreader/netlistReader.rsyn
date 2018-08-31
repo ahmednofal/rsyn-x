@@ -1,4 +1,6 @@
 open "verilog" {"netlist" : "/simple.v", "lef" : "/simple.lef"};
 start "rsyn.writer";
+start "rsyn.timer";
 run "ext.PrimitiveFloorplanner";
+run "example.randomPlacement";
 writeDEF;

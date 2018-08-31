@@ -24,6 +24,7 @@
 #include <stddef.h>
 #include <algorithm>
 #include <limits>
+#include <exception>
 
 #include <Rsyn/Point>
 #include <Rsyn/Rect>

@@ -45,6 +45,7 @@ void RandomPlacementExample::runRandomPlacement() {
 		Rsyn::Cell cell = instance.asCell(); // TODO: hack, assuming that the instance is a cell
 		Rsyn::PhysicalCell phCell = phDesign.getPhysicalCell(cell);
 		if (!instance.isFixed() && !instance.isMacroBlock()) {
+            std::cout << "trying to place " << endl;
 			phDesign.placeCell(cell,
 					coreBounds.randomInnerPoint(X),
 					coreBounds.randomInnerPoint(Y));

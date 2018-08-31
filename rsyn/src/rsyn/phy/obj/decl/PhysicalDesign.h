@@ -416,6 +416,8 @@ public:
 	////////////////////////////////////////////////////////////////////////////	
 
     void setDieArea();
+    PhysicalRow getCellRow(Rsyn::PhysicalCell);
+    
 public:
 
 	//! @brief Registers an observer to be notified about changes in the
