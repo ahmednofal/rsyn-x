@@ -59,7 +59,8 @@ void PrimitiveFloorplanner::create()
         rowDscp.clsStepY = 0;
         mRsynPhysicalDesign.addPhysicalRow(rowDscp);
     }
-    mRsynPhysicalDesign.setDieArea();
+    mRsynPhysicalDesign.setDieArea(0,0);
+    mRsynPhysicalDesign.defineDesignPhysicalTracks();
 }
 
 

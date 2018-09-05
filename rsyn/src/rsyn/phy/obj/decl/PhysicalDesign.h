@@ -415,8 +415,9 @@ public:
 	// Notifications
 	////////////////////////////////////////////////////////////////////////////	
 
-    void setDieArea();
+    void setDieArea(DBU xMin, DBU yMin);
     PhysicalRow getCellRow(Rsyn::PhysicalCell);
+    void defineDesignPhysicalTracks();
     
 public:
 

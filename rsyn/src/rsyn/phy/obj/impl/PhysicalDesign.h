@@ -721,7 +721,7 @@ inline void PhysicalDesign::unregisterObserver(PhysicalDesignObserver *observer)
 	observer->PhysicalDesignObserver::clsPhDesign = nullptr;
 } // end method
 
-inline void PhysicalDesign::setDieArea()
+inline void PhysicalDesign::setDieArea(DBU xMin, DBU yMin)
 {
 
 	/* return PhysicalDie(&data->clsPhysicalDie); */
@@ -732,7 +732,7 @@ inline void PhysicalDesign::setDieArea()
     double rowsHeight = getNumRows() * getRowHeight();
     double rowsArea = getArea(PHYSICAL_PLACEABLE);
     double rowsWidth = rowsArea/rowsHeight;
-    Bounds newDieArea(0,0, rowsHeight, rowsWidth); 
+    Bounds newDieArea(xMin,yMin, xMin+rowsHeight, yMin+rowsWidth); 
     data->clsPhysicalDie.clsBounds = newDieArea;
 }
 inline PhysicalRow PhysicalDesign::getCellRow(Rsyn::PhysicalCell phCell)
@@ -748,5 +748,36 @@ inline PhysicalRow PhysicalDesign::getCellRow(Rsyn::PhysicalCell phCell)
     }
     throw std::logic_error("ERROR: This cell is not within any physical rows. Are you sure it was placed");
     return PhysicalRow();
+}
+inline void PhysicalDesign::defineDesignPhysicalTracks()
+{
+    Rsyn::PhysicalDie phDie = getPhysicalDie();
+    for (Rsyn::PhysicalLayer phLayer : allPhysicalLayers())
+    {
+        Rsyn::PhysicalLayerDirection phLayerDir = phLayer.getDirection();
+        std::string trackDir = (phLayerDir == HORIZONTAL)? "Y" : "X";
+        Dimension pntDim;
+        Dimension pntDimRev;
+        switch (phLayerDir){
+            case HORIZONTAL : pntDim = Y;
+                              pntDimRev = X;
+                break;
+            case VERTICAL : pntDim = X;
+                            pntDimRev = Y;
+                break;
+            default:
+                    pntDim = X;
+        }
+        DBU dieDimLen = phDie.getLength(pntDimRev);
+        DBU Pitch = phLayer.getPitch(pntDimRev);
+        int numTracks = dieDimLen / Pitch;
+        DefTrackDscp phTrackDscp;
+        phTrackDscp.clsDirection = trackDir;
+        phTrackDscp.clsLocation = phDie.getCoordinate(LOWER, pntDim);
+        phTrackDscp.clsNumTracks = numTracks;
+        phTrackDscp.clsLayers.push_back(phLayer.getName());
+        phTrackDscp.clsSpace = Pitch;
+        addPhysicalTracks(phTrackDscp);
+    }
 }
 } // end namespace 
