@@ -118,10 +118,10 @@ void DbFiller::fillNetRelations()
             if (pin.isPort()) {
                 std::string portName = pin.getInstanceName();
                 statement = std::string("INSERT INTO Net_BPin ")
-                                        + std::string("VALUES(")
+                    + std::string("VALUES(")
                     + netName + ", "
                     + portName + ", "
-                                                      + std::string(");");
+                    + std::string(");");
             } else {
                 std::string pinName = pin.getName();
                 std::string pinCellName = pin.getLibraryCell().getName();
