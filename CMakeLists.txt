@@ -219,3 +219,17 @@ if(ISPD18)
   message("ISPD18 mode is on.")
   target_compile_options(rsyn PUBLIC "-DISPD18_BIN")
 endif()
+
+# SQLite
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/3rdparty/SQLiteCpp)
+
+include_directories(
+  ${CMAKE_CURRENT_LIST_DIR}/3rdparty/SQLiteCpp/include
+)
+
+target_link_libraries(rsyn
+  SQLiteCpp
+  sqlite3
+  pthread
+  dl
+)
