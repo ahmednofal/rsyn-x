@@ -9,14 +9,13 @@
 
 class DbFiller {
 public:
-    typedef void (DbFiller::*methodPointer)();
     DbFiller(std::string);
     void fill();
 private:
     SQLite::Database mDb;
     Rsyn::Session mSession;
     Rsyn::Design mDesign;
-    Rsyn::Library mLibrary;
+    Rsyn::Library  mLibrary;
     Rsyn::Module mModule;
     Rsyn::PhysicalDesign mPhyDesign;
     std::vector<void (DbFiller::*)()> fillers;
@@ -29,6 +28,7 @@ private:
     void fillNetRelations();
 
     void execStatement(std::string);
+    std::string sqlStr(std::string);
 };
 
 #endif
