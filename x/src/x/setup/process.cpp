@@ -34,6 +34,7 @@
 #include "x/opto/example/RandomPlacement.h"
 #include "x/opto/example/SandboxTest.h"
 #include "x/opto/example/PhysicalDesignEx.h"
+#include "x/opto/ext/sql/DbProcess.h"
 
 #ifdef RSYN_COIN_FOUND
 #ifdef RSYN_GLPK_FOUND
@@ -61,6 +62,7 @@ static Startup registerProcesses([]{
 
 	// External
 	session.registerProcess<ICCAD15::FastPlace>("ext.FastPlace");
+  session.registerProcess<DbProcess>("ext.DbProcess");
 
 	// Example
 	session.registerProcess<ICCAD15::QuadraticPlacementExample>("example.quadraticPlacement");
