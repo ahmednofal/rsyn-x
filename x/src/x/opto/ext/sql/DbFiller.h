@@ -25,9 +25,13 @@ private:
     void fillInst();
     void fillCPin();
     void fillMtoM();
+    void fillNet();
     void fillNetRelations();
 
     void execStatement(std::string);
+    void setForeignKeySupport(bool);
+    std::string insertStatement(std::string, std::vector<std::string>, std::vector<std::string>);
+    std::string sqlMultiValue(std::vector<std::string>);
     std::string sqlStr(std::string);
 };
 
