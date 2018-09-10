@@ -787,44 +787,6 @@ inline void PhysicalDesign::defineDesignPhysicalTracks()
         addPhysicalTracks(phTrackDscp);
     }
 }
->>>>>>> Stashed changes
-} // end namespace 
-=======
-=======
->>>>>>> Stashed changes
-
-
-/* inline void PhysicalDesign::placeCircuitPorts() */
-/* { */
-/* 	for (Rsyn::Port port : clsModule.allPorts()) { */
-/* 		Rsyn::PhysicalPort phPort = getPhysicalPort(port); */
-/* 		DefPortDscp & defPort; */  
-/* 		defPort.clsName = port.getName(); */
-/* 		defPort.clsNetName = port.getName(); */
-/* 		if (port.getDirection() == Rsyn::IN) */
-/* 			defPort.clsDirection = "INPUT"; */
-/* 		else if (port.getDirection() == Rsyn::OUT) */
-/* 			defPort.clsDirection = "OUTPUT"; */
-
-/* 		defPort.clsLocationType = "FIXED"; */
-/* 		/1* defPort.clsOrientation = Rsyn::getPhysicalOrientation(phPort.getOrientation()); *1/ */
-/*         defPort.clsOrientation = "N"; */ 
-/* 		defPort.clsLayerName = phPort.getLayer().getName(); */
-/* 		defPort.clsLayerBounds = phPort.getBounds(); */
-/* 		defPort.clsPos = phPort.getPosition(); */
-/*         addPhysicalPort(port, defPort); */
-
-/* 	} // end for */ 
-/* } */
-/* inline void PhysicalDesign::allPhysicalPortsAsPhysicalInstances() */
-/* { */
-/*     std::vector <Rsyn::Instance> */ 
-/* 	for (Rsyn::Port port : clsModule.allPorts()) */ 
-/*     { */
-/*         PhysicalInstanceData & portData = data->clsPhysicalInstances[cell]; */
-/*         portData.clsInstance */
-/*     } */ 
-/* } */
 
 inline void PhysicalDesign::placePhysicalPort(Rsyn::PhysicalPort physicalPort, const DBU x, const DBU y,
 	Rsyn::PhysicalOrientation orient, const bool dontNotifyObservers) {
@@ -852,8 +814,5 @@ inline std::vector<Rsyn::PhysicalPort> allPhysicalPorts()
     }
     return phPortsCont;
 }
-}// end namespace 
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+} // end namespace 
+
