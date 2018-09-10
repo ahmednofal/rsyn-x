@@ -412,11 +412,30 @@ public:
 	bool isNetRouted(Rsyn::Net net) const;
 
 	////////////////////////////////////////////////////////////////////////////
+	// Floorplanning
+	////////////////////////////////////////////////////////////////////////////
+    void setDieArea();
+    PhysicalRow getCellRow(Rsyn::PhysicalCell);
+    void placePhysicalPort(Rsyn::PhysicalPort physicalPort, const DBU x, const DBU y,Rsyn::PhysicalOrientation orient, const bool dontNotifyObservers);
+    std::vector<Rsyn::PhysicalPort> allPhysicalPorts();
+	////////////////////////////////////////////////////////////////////////////
 	// Notifications
 	////////////////////////////////////////////////////////////////////////////	
 
+<<<<<<< Updated upstream
     void setDieArea();
     PhysicalRow getCellRow(Rsyn::PhysicalCell);
+=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+    void setDieArea(DBU xMin, DBU yMin);
+    PhysicalRow getCellRow(Rsyn::PhysicalCell);
+    void defineDesignPhysicalTracks();
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     
 public:
 

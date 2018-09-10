@@ -19,6 +19,7 @@ public:
     void create();
     void setUtilization(double utilization = 0.86);
     void setFloorplanRatio(double heightPart = 1, double widthPart = 1);
+    void placePorts();
 
 private:
     double coreWidth();
@@ -45,6 +46,7 @@ private:
     double mHeightPart;
     double mWidthPart;
     double mCellsArea;
+
 
 }; // end class
 

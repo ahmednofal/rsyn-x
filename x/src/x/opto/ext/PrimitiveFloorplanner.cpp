@@ -102,3 +102,16 @@ double PrimitiveFloorplanner::coreHeight()
     return mCoreHeight;
 
 }
+void PrimitiveFloorplanner::placePorts()
+{
+    // Iterate over physical and send location and the physicalports to placePort
+    for (Rsyn::PhysicalPort phPort : mPhysicalDesign.allPhysicalPorts())
+    {
+        mPhysicalDesign.placePhysicalPort(phPort);
+        for (Rsyn::PhysicalTrack : mPhysicalDesign.allPhysicalTracks)
+        placePhysicalPort(phPort, const DBU x, const DBU y,
+                Rsyn::PhysicalOrientation orient, const bool dontNotifyObservers);
+
+    }
+    
+}

@@ -749,4 +749,108 @@ inline PhysicalRow PhysicalDesign::getCellRow(Rsyn::PhysicalCell phCell)
     throw std::logic_error("ERROR: This cell is not within any physical rows. Are you sure it was placed");
     return PhysicalRow();
 }
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+inline void PhysicalDesign::defineDesignPhysicalTracks()
+{
+    Rsyn::PhysicalDie phDie = getPhysicalDie();
+    for (Rsyn::PhysicalLayer phLayer : allPhysicalLayers())
+    {
+        Rsyn::PhysicalLayerDirection phLayerDir = phLayer.getDirection();
+        std::string trackDir = (phLayerDir == HORIZONTAL)? "Y" : "X";
+        Dimension pntDim;
+        Dimension pntDimRev;
+        switch (phLayerDir){
+            case HORIZONTAL : pntDim = Y;
+                              pntDimRev = X;
+                break;
+            case VERTICAL : pntDim = X;
+                            pntDimRev = Y;
+                break;
+            default:
+                    pntDim = X;
+        }
+        DBU dieDimLen = phDie.getLength(pntDimRev);
+        DBU Pitch = phLayer.getPitch(pntDimRev);
+        int numTracks = dieDimLen / Pitch;
+        DefTrackDscp phTrackDscp;
+        phTrackDscp.clsDirection = trackDir;
+        phTrackDscp.clsLocation = phDie.getCoordinate(LOWER, pntDim);
+        phTrackDscp.clsNumTracks = numTracks;
+        phTrackDscp.clsLayers.push_back(phLayer.getName());
+        phTrackDscp.clsSpace = Pitch;
+        addPhysicalTracks(phTrackDscp);
+    }
+}
+>>>>>>> Stashed changes
 } // end namespace 
+=======
+=======
+>>>>>>> Stashed changes
+
+
+/* inline void PhysicalDesign::placeCircuitPorts() */
+/* { */
+/* 	for (Rsyn::Port port : clsModule.allPorts()) { */
+/* 		Rsyn::PhysicalPort phPort = getPhysicalPort(port); */
+/* 		DefPortDscp & defPort; */  
+/* 		defPort.clsName = port.getName(); */
+/* 		defPort.clsNetName = port.getName(); */
+/* 		if (port.getDirection() == Rsyn::IN) */
+/* 			defPort.clsDirection = "INPUT"; */
+/* 		else if (port.getDirection() == Rsyn::OUT) */
+/* 			defPort.clsDirection = "OUTPUT"; */
+
+/* 		defPort.clsLocationType = "FIXED"; */
+/* 		/1* defPort.clsOrientation = Rsyn::getPhysicalOrientation(phPort.getOrientation()); *1/ */
+/*         defPort.clsOrientation = "N"; */ 
+/* 		defPort.clsLayerName = phPort.getLayer().getName(); */
+/* 		defPort.clsLayerBounds = phPort.getBounds(); */
+/* 		defPort.clsPos = phPort.getPosition(); */
+/*         addPhysicalPort(port, defPort); */
+
+/* 	} // end for */ 
+/* } */
+/* inline void PhysicalDesign::allPhysicalPortsAsPhysicalInstances() */
+/* { */
+/*     std::vector <Rsyn::Instance> */ 
+/* 	for (Rsyn::Port port : clsModule.allPorts()) */ 
+/*     { */
+/*         PhysicalInstanceData & portData = data->clsPhysicalInstances[cell]; */
+/*         portData.clsInstance */
+/*     } */ 
+/* } */
+
+inline void PhysicalDesign::placePhysicalPort(Rsyn::PhysicalPort physicalPort, const DBU x, const DBU y,
+	Rsyn::PhysicalOrientation orient, const bool dontNotifyObservers) {
+	const bool moved = (x != physicalPort.getPosition(X)) ||
+		(y != physicalPort.getPosition(Y));
+
+	// Notify observers.
+	if (moved) {
+		physicalPort->clsInstance->clsBounds.moveTo(x, y);
+        // Bug fix, push to main repo, rsynx
+        physicalPort.data->clsPlaced = true;
+		if (orient != ORIENTATION_INVALID) {
+			physicalPort->clsInstance->clsOrientation = orient;
+		} // end if 
+		if (!dontNotifyObservers) {
+			data->clsDesign.notifyInstancePlaced(physicalPort.getInstance());
+		} // end if
+	} // end if 	
+} // end method
+inline std::vector<Rsyn::PhysicalPort> allPhysicalPorts()
+{
+    std::vector<Rsyn::PhysicalPort> phPortsCont;
+	for (Rsyn::Port port : data->clsModule.allPorts()) {
+        phPortsCont.push_back(getPhysicalPort(port));
+    }
+    return phPortsCont;
+}
+}// end namespace 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
