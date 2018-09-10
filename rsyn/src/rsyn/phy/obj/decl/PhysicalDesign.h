@@ -423,10 +423,13 @@ public:
 	////////////////////////////////////////////////////////////////////////////	
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     void setDieArea();
     PhysicalRow getCellRow(Rsyn::PhysicalCell);
 =======
 <<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 <<<<<<< Updated upstream
     void setDieArea(DBU xMin, DBU yMin);
     PhysicalRow getCellRow(Rsyn::PhysicalCell);
@@ -435,6 +438,9 @@ public:
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     
 public:

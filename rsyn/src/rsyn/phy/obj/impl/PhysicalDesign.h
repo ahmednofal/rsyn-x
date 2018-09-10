@@ -750,8 +750,11 @@ inline PhysicalRow PhysicalDesign::getCellRow(Rsyn::PhysicalCell phCell)
     return PhysicalRow();
 }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
 <<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 <<<<<<< Updated upstream
 inline void PhysicalDesign::defineDesignPhysicalTracks()
 {
