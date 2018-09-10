@@ -780,4 +780,32 @@ inline void PhysicalDesign::defineDesignPhysicalTracks()
         addPhysicalTracks(phTrackDscp);
     }
 }
+
+inline void PhysicalDesign::placePhysicalPort(Rsyn::PhysicalPort physicalPort, const DBU x, const DBU y,
+	Rsyn::PhysicalOrientation orient, const bool dontNotifyObservers) {
+	const bool moved = (x != physicalPort.getPosition(X)) ||
+		(y != physicalPort.getPosition(Y));
+
+	// Notify observers.
+	if (moved) {
+		physicalPort->clsInstance->clsBounds.moveTo(x, y);
+        // Bug fix, push to main repo, rsynx
+        physicalPort.data->clsPlaced = true;
+		if (orient != ORIENTATION_INVALID) {
+			physicalPort->clsInstance->clsOrientation = orient;
+		} // end if 
+		if (!dontNotifyObservers) {
+			data->clsDesign.notifyInstancePlaced(physicalPort.getInstance());
+		} // end if
+	} // end if 	
+} // end method
+inline std::vector<Rsyn::PhysicalPort> allPhysicalPorts()
+{
+    std::vector<Rsyn::PhysicalPort> phPortsCont;
+	for (Rsyn::Port port : data->clsModule.allPorts()) {
+        phPortsCont.push_back(getPhysicalPort(port));
+    }
+    return phPortsCont;
+}
 } // end namespace 
+
