@@ -61,6 +61,7 @@ void PrimitiveFloorplanner::create()
     }
     mRsynPhysicalDesign.setDieArea(0,0);
     mRsynPhysicalDesign.defineDesignPhysicalTracks();
+    placePorts();
 }
 
 
@@ -103,16 +104,111 @@ double PrimitiveFloorplanner::coreHeight()
     return mCoreHeight;
 
 }
+/* Rsyn::PhysicalOrientation portOrientation(Rsyn::PhysicalPort phPort, Rsyn::PhysicalTrackDirection phTracksDir) */
+/* { */
+/*     switch(phTracksDir) */
+/*     { */
+/*         case horizontal: */
+/*             dbu workingdim = mphysicaldesign.getphysicaldie().getlength(x); */
+/*             // Assuming 0,0 top left corner in the die */
+/*             if (yCoordinate == workingdim) */
+/*             { */
+/*             } */
+
+/*             break; */
+/*         case VERTICAL: */
+/*             DBU workingDim = mRsynPhysicalDesign.getPhysicalDie().getLength(Y); */
+/*             break; */
+/*     } */
+/* } */
 void PrimitiveFloorplanner::placePorts()
 {
-    // Iterate over physical and send location and the physicalports to placePort
-    for (Rsyn::PhysicalPort phPort : mPhysicalDesign.allPhysicalPorts())
-    {
-        mPhysicalDesign.placePhysicalPort(phPort);
-        for (Rsyn::PhysicalTrack : mPhysicalDesign.allPhysicalTracks)
-        placePhysicalPort(phPort, const DBU x, const DBU y,
-                Rsyn::PhysicalOrientation orient, const bool dontNotifyObservers);
+    auto debugging = true;
+    auto placementDone = false;
+    DBU xCoordinateMul = 0;
+    DBU yCoordinateMul = 0;
+    DBU xOffSet = 0;
+    DBU yOffSet = 0;
+    DBU xSpace = 0;
+    DBU ySpace = 0;
+    DBU xLocation = 0;
+    DBU yLocation = 0;
+    Rsyn::PhysicalTrackDirection phTracksDir;
+    DBU location;
+    DBU space;
+    int tracksNum;
+    std::vector<Rsyn::PhysicalPort> designPhysicalPorts = mRsynPhysicalDesign.allPhysicalPorts();
+    Rsyn::PhysicalOrientation orient = Rsyn::PhysicalOrientation::ORIENTATION_E;
 
+    // Iterate over physical and send location and the physicalports to placePort
+    for (Rsyn::PhysicalLayer phLayer: mRsynPhysicalDesign.allPhysicalLayers())
+    {
+        if (placementDone)
+            break;
+        for (Rsyn::PhysicalTracks phTracks : mRsynPhysicalDesign.allPhysicalTracks(phLayer))
+        {
+        if (placementDone)
+            break;
+            location = phTracks.getLocation();
+            space = phTracks.getSpace();
+            tracksNum = phTracks.getNumberOfTracks();
+            phTracksDir = phTracks.getDirection();
+            switch (phTracksDir){
+                case Rsyn::PhysicalTrackDirection::TRACK_HORIZONTAL:
+                    yCoordinateMul = 1;
+                    ySpace = space;
+                    if (mPlacePortsOnEndOfTrack)
+                    yOffSet = mRsynPhysicalDesign.getPhysicalDie().getLength(X);
+                    yLocation = location;
+                    if (debugging)
+                    {
+                        std::cout << "yCoordinateMul" << yCoordinateMul << std::endl;
+                        std::cout << "ySpace   "<< ySpace << std::endl;
+                        std::cout << "yOffSet  "<< yOffSet << std::endl;
+                        std::cout << "yLocation"<< yLocation<< std::endl;
+
+                    }
+                    break;
+                case Rsyn::PhysicalTrackDirection::TRACK_VERTICAL:
+                    yCoordinateMul = 1;
+                    xSpace = space;
+                    if (mPlacePortsOnEndOfTrack)
+                    xOffSet = mRsynPhysicalDesign.getPhysicalDie().getLength(Y);
+                    xLocation = location;
+                    if (debugging)
+                    {
+                        std::cout << "xCoordinateMul" << xCoordinateMul << std::endl;
+                        std::cout << "xSpace   "<< xSpace << std::endl;
+                        std::cout << "xOffSet  "<< xOffSet << std::endl;
+                        std::cout << "xLocation"<< xLocation<< std::endl;
+
+                    }
+                    break;
+            }
+            for (int trackIndex = 0; trackIndex < tracksNum; trackIndex++)
+            {
+                if(debugging)
+                std::cout << "in track " << trackIndex << std::endl;
+                Rsyn::PhysicalPort phPort = designPhysicalPorts.back();
+                if(debugging)
+                std::cout << "phPortName " << phPort.getName() << std::endl;
+                designPhysicalPorts.pop_back();
+                DBU xCoordinate =   xLocation + xOffSet + xCoordinateMul*trackIndex*xSpace;
+                DBU yCoordinate =   yLocation + yOffSet + yCoordinateMul*trackIndex*ySpace;
+                if(debugging)
+                std::cout << "(x, y) of phPort    " << xCoordinate << ","<< yCoordinate << std::endl;
+                if(debugging)
+                    if (orient == Rsyn::PhysicalOrientation::ORIENTATION_INVALID)
+                        std::cout << "invalid orient" << std::endl;
+                mRsynPhysicalDesign.placePhysicalPort(phPort, xCoordinate, yCoordinate,
+                    orient , false);
+                if (designPhysicalPorts.empty())
+                {
+                    placementDone = true;
+                    break;
+                }
+            }
+
+        }
     }
-    
 }

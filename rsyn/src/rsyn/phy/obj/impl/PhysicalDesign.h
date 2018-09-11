@@ -788,18 +788,18 @@ inline void PhysicalDesign::placePhysicalPort(Rsyn::PhysicalPort physicalPort, c
 
 	// Notify observers.
 	if (moved) {
-		physicalPort->clsInstance->clsBounds.moveTo(x, y);
+		physicalPort->clsInstance->clsPortPos = DBUxy(x, y);
         // Bug fix, push to main repo, rsynx
         physicalPort.data->clsPlaced = true;
-		if (orient != ORIENTATION_INVALID) {
-			physicalPort->clsInstance->clsOrientation = orient;
-		} // end if 
 		if (!dontNotifyObservers) {
 			data->clsDesign.notifyInstancePlaced(physicalPort.getInstance());
 		} // end if
 	} // end if 	
+    if (orient != ORIENTATION_INVALID) {
+        physicalPort->clsInstance->clsOrientation = orient;
+    } // end if 
 } // end method
-inline std::vector<Rsyn::PhysicalPort> allPhysicalPorts()
+inline std::vector<Rsyn::PhysicalPort> PhysicalDesign::allPhysicalPorts()
 {
     std::vector<Rsyn::PhysicalPort> phPortsCont;
 	for (Rsyn::Port port : data->clsModule.allPorts()) {
