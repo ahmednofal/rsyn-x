@@ -20,7 +20,7 @@ public:
     void setUtilization(double utilization = 0.86);
     void setFloorplanRatio(double heightPart = 1, double widthPart = 1);
     void placePorts();
-    /* Rsyn::PhysicalOrientation portOrientation(Rsyn::PhysicalPort phPort, Rsyn::PhysicalTrackDirection phTrackDir,  ) */
+    Rsyn::PhysicalOrientation portOrientation(Rsyn::PhysicalPort phPort, Rsyn::PhysicalTrackDirection phTrackDir,  )
 
 private:
     double coreWidth();

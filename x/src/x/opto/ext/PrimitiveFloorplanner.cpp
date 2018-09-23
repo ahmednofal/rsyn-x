@@ -104,23 +104,23 @@ double PrimitiveFloorplanner::coreHeight()
     return mCoreHeight;
 
 }
-/* Rsyn::PhysicalOrientation portOrientation(Rsyn::PhysicalPort phPort, Rsyn::PhysicalTrackDirection phTracksDir) */
-/* { */
-/*     switch(phTracksDir) */
-/*     { */
-/*         case horizontal: */
-/*             dbu workingdim = mphysicaldesign.getphysicaldie().getlength(x); */
-/*             // Assuming 0,0 top left corner in the die */
-/*             if (yCoordinate == workingdim) */
-/*             { */
-/*             } */
+Rsyn::PhysicalOrientation portOrientation(Rsyn::PhysicalPort phPort, Rsyn::PhysicalTrackDirection phTracksDir)
+{
+    // What we need to get this done
+    // Pins placed at the bottom left 0 0 would be north
+    // pins placed left would be east, right would be 
+    switch(phTracksDir)
+    {
+        case Rsyn::PhysicalTrackDirection::TRACK_HORIZONTAL:
+            DBU workingDim = mRsynPhysicalDesign.getPhysicalDie().getLength(X);
+            break;
 
-/*             break; */
-/*         case VERTICAL: */
-/*             DBU workingDim = mRsynPhysicalDesign.getPhysicalDie().getLength(Y); */
-/*             break; */
-/*     } */
-/* } */
+            break;
+        case Rsyn::PhysicalTrackDirection::TRACK_VERTICAL:
+            DBU workingDim = mRsynPhysicalDesign.getPhysicalDie().getLength(Y);
+            break;
+    }
+}
 void PrimitiveFloorplanner::placePorts()
 {
     auto debugging = true;
