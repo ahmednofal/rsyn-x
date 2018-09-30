@@ -1,4 +1,7 @@
 #include "DbFiller.h"
+#include "SqlTable.h"
+#include "rsyn/model/timing/DefaultTimingModel.h"
+#include "rsyn/model/scenario/Scenario.h"
 
 
 std::string directionToStr(Rsyn::Direction direction)
@@ -20,13 +23,13 @@ DbFiller::DbFiller(std::string dbFilePath) :
     mModule(mSession.getTopModule()),
     mPhyDesign(mSession.getPhysicalDesign())
 {
-    fillers.push_back(&DbFiller::fillBlock);
-    fillers.push_back(&DbFiller::fillBPin);
-    fillers.push_back(&DbFiller::fillCell);
+//    fillers.push_back(&DbFiller::fillBlock);
+//    fillers.push_back(&DbFiller::fillBPin);
+//    fillers.push_back(&DbFiller::fillCell);
     fillers.push_back(&DbFiller::fillCPin);
     fillers.push_back(&DbFiller::fillInst);
-    fillers.push_back(&DbFiller::fillNet);
-    fillers.push_back(&DbFiller::fillNetRelations);
+//    fillers.push_back(&DbFiller::fillNet);
+//    fillers.push_back(&DbFiller::fillNetRelations);
 }
 
 
@@ -45,11 +48,14 @@ void DbFiller::execStatement(std::string statement)
 void DbFiller::fillInst()
 {
     std::string tableName = "Inst";
-    std::vector<std::string> values;
     std::vector<std::string> headers {
         "NAME",
         "Cell_Name"
     };
+
+    SqlTable table(tableName);
+    SqlHeader sqlHeader(headers);
+    table.setHeader(sqlHeader);
 
     SQLite::Transaction transaction(mDb);
 
@@ -60,12 +66,19 @@ void DbFiller::fillInst()
             Rsyn::LibraryCell libCell = cell.getLibraryCell();
             std::string libCellName = libCell.getName();
 
-            values.push_back(cellName);
-            values.push_back(libCellName);
-            std::string statement = insertStatement(tableName, headers, values);
-            execStatement(statement);
-            values.clear();
+
+            SqlValue sqlCellName(0, cellName);
+            SqlValue sqlLibCellName(1, libCellName);
+            SqlRow row(table.getWidth());
+            row.insertValue(sqlCellName);
+            row.insertValue(sqlLibCellName);
+            table.insertRow(row);
         }
+    }
+
+    for (auto statement : table.insertAll()) {
+        std::cout << statement << std:: endl;
+        execStatement(statement);
     }
 
     transaction.commit();
@@ -105,12 +118,11 @@ void DbFiller::fillCell()
 void DbFiller::fillBPin()
 {
     std::string tableName = "BPin";
-    std::vector<std::string> values;
-    std::vector<std::string> headers {
-        "NAME",
-        "dir",
-        "Block_Name"
-    };
+
+    std::map<std::string, std::string> entries;
+    entries["NAME"] = "";
+    entries["dir"] = "";
+    entries["Block_Name"] = "";
 
     SQLite::Transaction transaction(mDb);
 
@@ -119,12 +131,11 @@ void DbFiller::fillBPin()
         std::string name = port.getName();
         std::string dir = directionToStr(port.getDirection());
 
-        values.push_back(name);
-        values.push_back(dir);
-        values.push_back(blockName);
-        std::string statement = insertStatement(tableName, headers, values);
+        entries["NAME"] = name;
+        entries["dir"] = dir;
+        entries["Block_Name"] = blockName;
+        std::string statement = insertStatement(tableName, entries);
         execStatement(statement);
-        values.clear();
     }
 
     transaction.commit();
@@ -216,23 +227,46 @@ void DbFiller::fillCPin()
     std::vector<std::string> headers {
         "NAME",
         "dir",
-        "Cell_Name"
+        "Cell_Name",
+        "cap"
     };
 
     SQLite::Transaction transaction(mDb);
 
+    Rsyn::DefaultTimingModel* timingModel = mSession.getService("rsyn.defaultTimingModel");
+    Rsyn::Scenario * scenario = mSession.getService("rsyn.scenario");
+
     for (Rsyn::LibraryCell libCell : mLibrary.allLibraryCells()) {
         std::string cellName = libCell.getName();
+//        for (Rsyn::LibraryArc libArc : libCell.allLibraryArcs()) {
+//            auto timingLibArc = scenario->getTimingLibraryArc(libArc);
+////            ISPD13::LibParserLUT wv = scenario->getTimingLibraryArc(libArc).getDelayLut(Rsyn::TimingMode::LATE, Rsyn::RISE);
+////            std::cout << wv << std::endl;
+//            std::cout << libArc.getName();
+//            auto lut = timingLibArc.getDelayLut(Rsyn::TimingMode::LATE, Rsyn::RISE);
+//            for (auto index : lut.loadIndices) {
+//                std::cout << index << "\t";
+//            }
+//            std::cout << std::endl;
+//            for (auto index : lut.transitionIndices) {
+//                std::cout << index << "\t";
+//            }
+//            std::cout << std::endl;
+//        }
         for (Rsyn::LibraryPin pin : libCell.allLibraryPins()) {
                 std::string pinName = pin.getName();
                 std::string dir = pin.getDirectionName();
+                float cap = timingModel->getLibraryPinInputCapacitance(pin);
 
                 values.push_back(pinName);
                 values.push_back(dir);
                 values.push_back(cellName);
+                values.push_back(std::to_string(cap));
                 std::string statement = insertStatement(tableName, headers, values);
                 execStatement(statement);
                 values.clear();
+                // ISPD13::LibParserLUT wv = (scenario->getTimingLibraryPin(pin).getSetupLut(Rsyn::RISE));
+                // std::cout << wv << std::endl;
         }
     }
 
@@ -304,4 +338,25 @@ std::string DbFiller::sqlMultiValue(std::vector<std::string> values)
     }
 
     return valuesStr;
+}
+
+
+std::string DbFiller::insertStatement(std::string tableName, std::map<std::string, std::string> entries)
+{
+    std::vector<std::string> headers;
+    std::vector<std::string> values;
+
+    for (auto entry : entries) {
+        headers.push_back(entry.first);
+        values.push_back(entry.second);
+    }
+
+    std::string headersStr = sqlMultiValue(headers);
+    std::string valuesStr = sqlMultiValue(values);
+    std::string statement = "INSERT INTO "
+        + tableName
+        + headersStr + " "
+        + "VALUES"
+        + valuesStr + ";";
+    return statement;
 }
