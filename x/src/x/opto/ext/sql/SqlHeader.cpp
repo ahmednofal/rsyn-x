@@ -44,6 +44,9 @@ std::string SqlHeader::getStr()
             + "\'"
             + ", ";
     }
-    s += mColsNames[mColsNames.size() - 1] + ")";
+    s +=  "\'"
+        + mColsNames[mColsNames.size() - 1]
+        + "\'"
+        + ")";
     return s;
 }

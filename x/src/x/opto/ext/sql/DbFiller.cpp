@@ -26,7 +26,7 @@ DbFiller::DbFiller(std::string dbFilePath) :
     fillers.push_back(&DbFiller::fillBlock);
     fillers.push_back(&DbFiller::fillBPin);
     fillers.push_back(&DbFiller::fillCell);
-    fillers.push_back(&DbFiller::fillCPin);
+//    fillers.push_back(&DbFiller::fillCPin);
     fillers.push_back(&DbFiller::fillInst);
     fillers.push_back(&DbFiller::fillNet);
     fillers.push_back(&DbFiller::fillNetRelations);
@@ -93,6 +93,7 @@ void DbFiller::fillCell()
         row.insertValue(SqlValue(0, name));
         row.insertValue(SqlValue(1, std::to_string(height)));
         row.insertValue(SqlValue(2, std::to_string(width)));
+        table.insertRow(row);
     }
     execInsert(table);
 }
@@ -119,8 +120,8 @@ void DbFiller::fillBPin()
         row.insertValue(SqlValue(0, name));
         row.insertValue(SqlValue(1, dir));
         row.insertValue(SqlValue(2, blockName));
+        table.insertRow(row);
     }
-
     execInsert(table);
 }
 
@@ -167,6 +168,7 @@ void DbFiller::fillNetRelations()
                 SqlRow row(BPinTable.getWidth());
                 row.insertValue(SqlValue(0, netName));
                 row.insertValue(SqlValue(1, portName));
+                BPinTable.insertRow(row);
             } else {
                 std::string pinName = pin.getName();
                 std::string pinCellName = pin.getLibraryCell().getName();
@@ -177,6 +179,7 @@ void DbFiller::fillNetRelations()
                 row.insertValue(SqlValue(1, pinName));
                 row.insertValue(SqlValue(2, pinCellName));
                 row.insertValue(SqlValue(3, instName));
+                CPinTable.insertRow(row);
             }
         }
     }
@@ -199,6 +202,7 @@ void DbFiller::fillNet()
 
         SqlRow row(table.getWidth());
         row.insertValue(SqlValue(0, netName));
+        table.insertRow(row);
     }
     execInsert(table);
 }
@@ -265,7 +269,6 @@ void DbFiller::fillBlock()
 
     SqlTable table(tableName);
     table.setHeader(SqlHeader(headers));
-    SQLite::Transaction transaction(mDb);
 
     std::string name = mDesign.getName();
 
