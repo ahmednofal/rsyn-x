@@ -4,10 +4,10 @@ SqlValue::SqlValue()
 {
 }
 
-SqlValue::SqlValue(int key, std::string value)
+SqlValue::SqlValue(int key, std::string value) :
+    mKey(key),
+    mValue(value)
 {
-    setValue(value);
-    setColKey(key);
 }
 
 void SqlValue::setValue(std::string value)

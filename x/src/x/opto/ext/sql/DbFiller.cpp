@@ -23,13 +23,13 @@ DbFiller::DbFiller(std::string dbFilePath) :
     mModule(mSession.getTopModule()),
     mPhyDesign(mSession.getPhysicalDesign())
 {
-//    fillers.push_back(&DbFiller::fillBlock);
-//    fillers.push_back(&DbFiller::fillBPin);
-//    fillers.push_back(&DbFiller::fillCell);
+    fillers.push_back(&DbFiller::fillBlock);
+    fillers.push_back(&DbFiller::fillBPin);
+    fillers.push_back(&DbFiller::fillCell);
     fillers.push_back(&DbFiller::fillCPin);
     fillers.push_back(&DbFiller::fillInst);
-//    fillers.push_back(&DbFiller::fillNet);
-//    fillers.push_back(&DbFiller::fillNetRelations);
+    fillers.push_back(&DbFiller::fillNet);
+    fillers.push_back(&DbFiller::fillNetRelations);
 }
 
 
@@ -52,12 +52,7 @@ void DbFiller::fillInst()
         "NAME",
         "Cell_Name"
     };
-
-    SqlTable table(tableName);
-    SqlHeader sqlHeader(headers);
-    table.setHeader(sqlHeader);
-
-    SQLite::Transaction transaction(mDb);
+    SqlTable table(tableName, SqlHeader(headers));
 
     for (Rsyn::Instance instance : mModule.allInstances()) {
         if (instance.getType() == Rsyn::CELL) {
@@ -65,7 +60,6 @@ void DbFiller::fillInst()
             std::string cellName = cell.getName();
             Rsyn::LibraryCell libCell = cell.getLibraryCell();
             std::string libCellName = libCell.getName();
-
 
             SqlValue sqlCellName(0, cellName);
             SqlValue sqlLibCellName(1, libCellName);
@@ -75,27 +69,19 @@ void DbFiller::fillInst()
             table.insertRow(row);
         }
     }
-
-    for (auto statement : table.insertAll()) {
-        std::cout << statement << std:: endl;
-        execStatement(statement);
-    }
-
-    transaction.commit();
+    execInsert(table);
 }
 
 
 void DbFiller::fillCell()
 {
     std::string tableName = "Cell";
-    std::vector<std::string> values;
     std::vector<std::string> headers {
         "NAME",
         "height",
         "width"
     };
-
-    SQLite::Transaction transaction(mDb);
+    SqlTable table(tableName, SqlHeader(headers));
 
     for (Rsyn::LibraryCell libCell : mLibrary.allLibraryCells()) {
         Rsyn::PhysicalLibraryCell phyLibCell = mPhyDesign.getPhysicalLibraryCell(libCell);
@@ -103,15 +89,12 @@ void DbFiller::fillCell()
         int width = phyLibCell.getWidth();
         int height = phyLibCell.getHeight();
 
-        values.push_back(name);
-        values.push_back(std::to_string(height));
-        values.push_back(std::to_string(width));
-        std::string statement = insertStatement(tableName, headers, values);
-        execStatement(statement);
-        values.clear();
+        SqlRow row(table.getWidth());
+        row.insertValue(SqlValue(0, name));
+        row.insertValue(SqlValue(1, std::to_string(height)));
+        row.insertValue(SqlValue(2, std::to_string(width)));
     }
-
-    transaction.commit();
+    execInsert(table);
 }
 
 
@@ -120,25 +103,25 @@ void DbFiller::fillBPin()
     std::string tableName = "BPin";
 
     std::map<std::string, std::string> entries;
-    entries["NAME"] = "";
-    entries["dir"] = "";
-    entries["Block_Name"] = "";
-
-    SQLite::Transaction transaction(mDb);
+    std::vector<std::string> headers {
+        "NAME",
+        "dir",
+        "Block_Name"
+    };
+    SqlTable table(tableName, SqlHeader(headers));
 
     std::string blockName = mDesign.getName();
     for (Rsyn::Port port : mModule.allPorts()) {
         std::string name = port.getName();
         std::string dir = directionToStr(port.getDirection());
 
-        entries["NAME"] = name;
-        entries["dir"] = dir;
-        entries["Block_Name"] = blockName;
-        std::string statement = insertStatement(tableName, entries);
-        execStatement(statement);
+        SqlRow row(table.getWidth());
+        row.insertValue(SqlValue(0, name));
+        row.insertValue(SqlValue(1, dir));
+        row.insertValue(SqlValue(2, blockName));
     }
 
-    transaction.commit();
+    execInsert(table);
 }
 
 
@@ -160,40 +143,45 @@ void DbFiller::fill()
 // check all
 void DbFiller::fillNetRelations()
 {
-    std::string tableName;
-    std::vector<std::string> headers;
-    std::vector<std::string> values;
-
-    SQLite::Transaction transaction(mDb);
+    std::string BPinTableName = "Net_BPin";
+    std::string CPinTableName = "Net_CPin_Inst";
+    std::vector<std::string> cHeaders {
+        "Net_Name",
+        "CPin_Name",
+        "CPin_CName",
+        "Inst_Name"
+    };
+    std::vector<std::string> bHeaders {
+        "Net_Name",
+        "BPin_Name"
+    };
+    SqlTable BPinTable(BPinTableName, SqlHeader(bHeaders));
+    SqlTable CPinTable(CPinTableName, SqlHeader(cHeaders));
 
     for (Rsyn::Net net : mModule.allNets()) {
         std::string netName = net.getName();
         for (Rsyn::Pin pin : net.allPins()) {
-            std::string statement = "BOGUS";
             if (pin.isPort()) {
                 std::string portName = pin.getInstanceName();
 
-                values.push_back(netName);
-                values.push_back(portName);
-                tableName = "Net_BPin";
+                SqlRow row(BPinTable.getWidth());
+                row.insertValue(SqlValue(0, netName));
+                row.insertValue(SqlValue(1, portName));
             } else {
                 std::string pinName = pin.getName();
                 std::string pinCellName = pin.getLibraryCell().getName();
                 std::string instName = pin.getInstanceName(); // check this ones
 
-                values.push_back(netName);
-                values.push_back(pinName);
-                values.push_back(pinCellName);
-                values.push_back(instName);
-                tableName = "Net_CPin_Inst";
+                SqlRow row(CPinTable.getWidth());
+                row.insertValue(SqlValue(0, netName));
+                row.insertValue(SqlValue(1, pinName));
+                row.insertValue(SqlValue(2, pinCellName));
+                row.insertValue(SqlValue(3, instName));
             }
-            statement = insertStatement(tableName, headers, values);
-            execStatement(statement);
-            values.clear();
         }
     }
-
-    transaction.commit();
+    execInsert(BPinTable);
+    execInsert(CPinTable);
 }
 
 
@@ -202,21 +190,17 @@ void DbFiller::fillNet()
     std::string tableName = "Net";
     std::vector<std::string> values;
     std::vector<std::string> headers {
-        "NAME",
+        "NAME"
     };
-
-    SQLite::Transaction transaction(mDb);
+    SqlTable table(tableName, SqlHeader(headers));
 
     for (Rsyn::Net net : mModule.allNets()) {
         std::string netName = net.getName();
 
-        values.push_back(netName);
-        std::string statement = insertStatement(tableName, headers, values);
-        execStatement(statement);
-        values.clear();
+        SqlRow row(table.getWidth());
+        row.insertValue(SqlValue(0, netName));
     }
-
-    transaction.commit();
+    execInsert(table);
 }
 
 
@@ -230,8 +214,7 @@ void DbFiller::fillCPin()
         "Cell_Name",
         "cap"
     };
-
-    SQLite::Transaction transaction(mDb);
+    SqlTable table(tableName, SqlHeader(headers));
 
     Rsyn::DefaultTimingModel* timingModel = mSession.getService("rsyn.defaultTimingModel");
     Rsyn::Scenario * scenario = mSession.getService("rsyn.scenario");
@@ -240,8 +223,8 @@ void DbFiller::fillCPin()
         std::string cellName = libCell.getName();
 //        for (Rsyn::LibraryArc libArc : libCell.allLibraryArcs()) {
 //            auto timingLibArc = scenario->getTimingLibraryArc(libArc);
-////            ISPD13::LibParserLUT wv = scenario->getTimingLibraryArc(libArc).getDelayLut(Rsyn::TimingMode::LATE, Rsyn::RISE);
-////            std::cout << wv << std::endl;
+//            ISPD13::LibParserLUT wv = scenario->getTimingLibraryArc(libArc).getDelayLut(Rsyn::TimingMode::LATE, Rsyn::RISE);
+//            std::cout << wv << std::endl;
 //            std::cout << libArc.getName();
 //            auto lut = timingLibArc.getDelayLut(Rsyn::TimingMode::LATE, Rsyn::RISE);
 //            for (auto index : lut.loadIndices) {
@@ -258,19 +241,17 @@ void DbFiller::fillCPin()
                 std::string dir = pin.getDirectionName();
                 float cap = timingModel->getLibraryPinInputCapacitance(pin);
 
-                values.push_back(pinName);
-                values.push_back(dir);
-                values.push_back(cellName);
-                values.push_back(std::to_string(cap));
-                std::string statement = insertStatement(tableName, headers, values);
-                execStatement(statement);
-                values.clear();
+                SqlRow row(table.getWidth());
+                row.insertValue(SqlValue(0, pinName));
+                row.insertValue(SqlValue(1, dir));
+                row.insertValue(SqlValue(2, cellName));
+                row.insertValue(SqlValue(3, std::to_string(cap)));
+                table.insertRow(row);
                 // ISPD13::LibParserLUT wv = (scenario->getTimingLibraryPin(pin).getSetupLut(Rsyn::RISE));
                 // std::cout << wv << std::endl;
         }
     }
-
-    transaction.commit();
+    execInsert(table);
 }
 
 
@@ -278,17 +259,20 @@ void DbFiller::fillBlock()
 {
     std::string tableName = "Block";
     std::vector<std::string> values;
-    std::vector<std::string> headers;
+    std::vector<std::string> headers {
+        "NAME"
+    };
 
+    SqlTable table(tableName);
+    table.setHeader(SqlHeader(headers));
     SQLite::Transaction transaction(mDb);
 
     std::string name = mDesign.getName();
 
-    values.push_back(name);
-    std::string statement = insertStatement(tableName, headers, values);
-    execStatement(statement);
-
-    transaction.commit();
+    SqlRow row(table.getWidth());
+    row.insertValue(SqlValue(0, name));
+    table.insertRow(row);
+    execInsert(table);
 }
 
 
@@ -353,10 +337,22 @@ std::string DbFiller::insertStatement(std::string tableName, std::map<std::strin
 
     std::string headersStr = sqlMultiValue(headers);
     std::string valuesStr = sqlMultiValue(values);
+
     std::string statement = "INSERT INTO "
         + tableName
         + headersStr + " "
         + "VALUES"
         + valuesStr + ";";
     return statement;
+}
+
+void DbFiller::execInsert(SqlTable & table)
+{
+    SQLite::Transaction transaction(mDb);
+
+    for (auto statement : table.insertAll()) {
+        execStatement(statement);
+    }
+
+    transaction.commit();
 }

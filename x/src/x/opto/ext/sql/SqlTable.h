@@ -18,8 +18,10 @@ public:
     void insertRow(SqlRow);
     void setHeader(SqlHeader);
     std::vector<std::string> insertAll();
-    SqlTable() = default;
+
     SqlTable(std::string);
+    SqlTable(std::string, SqlHeader);
+    SqlTable() = default;
     ~SqlTable() = default;
 };
 

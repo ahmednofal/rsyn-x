@@ -7,6 +7,7 @@
 #include <vector>
 #include <Rsyn/PhysicalDesign>
 #include <map>
+#include "SqlTable.h"
 
 class DbFiller {
 public:
@@ -30,6 +31,7 @@ private:
     void fillNetRelations();
 
     void execStatement(std::string);
+    void execInsert(SqlTable &);
     void setForeignKeySupport(bool);
     std::string insertStatement(std::string, std::vector<std::string>, std::vector<std::string>);
     std::string insertStatement(std::string, std::map<std::string, std::string>);

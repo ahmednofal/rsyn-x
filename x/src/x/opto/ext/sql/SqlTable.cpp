@@ -1,6 +1,12 @@
 #include "SqlTable.h"
 #include <iostream>
 
+SqlTable::SqlTable(std::string name, SqlHeader header) :
+    mTableName(name),
+    mHeader(header)
+{
+}
+
 int SqlTable::getWidth()
 {
     return mHeader.getSize();
