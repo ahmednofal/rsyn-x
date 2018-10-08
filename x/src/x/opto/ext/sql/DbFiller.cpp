@@ -23,13 +23,15 @@ DbFiller::DbFiller(std::string dbFilePath) :
     mModule(mSession.getTopModule()),
     mPhyDesign(mSession.getPhysicalDesign())
 {
-    fillers.push_back(&DbFiller::fillBlock);
-    fillers.push_back(&DbFiller::fillBPin);
-    fillers.push_back(&DbFiller::fillCell);
+//    fillers.push_back(&DbFiller::fillBlock);
+//    fillers.push_back(&DbFiller::fillBPin);
+//    fillers.push_back(&DbFiller::fillCell);
 //    fillers.push_back(&DbFiller::fillCPin);
-    fillers.push_back(&DbFiller::fillInst);
-    fillers.push_back(&DbFiller::fillNet);
-    fillers.push_back(&DbFiller::fillNetRelations);
+//    fillers.push_back(&DbFiller::fillInst);
+//    fillers.push_back(&DbFiller::fillNet);
+//    fillers.push_back(&DbFiller::fillNetRelations);
+    fillers.push_back(&DbFiller::fillArcs);
+    fillers.push_back(&DbFiller::fillLUT);
 }
 
 
@@ -205,6 +207,191 @@ void DbFiller::fillNet()
         table.insertRow(row);
     }
     execInsert(table);
+}
+
+void DbFiller::printLut(ISPD13::LibParserLUT & lut)
+{
+    std::cout << "Load: ";
+    std::vector<double> loadIdx = lut.loadIndices;
+    std::vector<double> transIdx = lut.transitionIndices;
+    auto values = lut.tableVals;
+    int valuesRows = values.getNumRows();
+    int valuesCols = values.getNumCols();
+
+    for (int i = 0; i < loadIdx.size(); i++) {
+        std::cout << loadIdx[i] << " ";
+    }
+    std::cout << std::endl << "Tans: ";
+    for (int i = 0; i < transIdx.size(); i++) {
+        std::cout << transIdx[i] << " ";
+    }
+    std::cout << std::endl
+              << "Values\n";
+    for (int i = 0; i < valuesRows; ++i) {
+
+        for (int j = 0; j < valuesCols; j++) {
+            std::cout << values(i, j) << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+void DbFiller::fillArcs()
+{
+    Rsyn::DefaultTimingModel * timingModel = mSession.getService("rsyn.defaultTimingModel");
+    Rsyn::Scenario * scenario = mSession.getService("rsyn.scenario");
+    std::string tableName = "Timing_Arcs";
+    std::string lutTableName = "Timing_Arcs_LUT";
+    std::vector<std::string> headers {
+        "ID",
+        "From_Pin_Name",
+        "From_Pin_Cell_Name",
+        "To_Pin_Name",
+        "To_Pin_Cell_Name",
+        "timing_sense"
+    };
+    SqlTable table(tableName, headers);
+
+    int arcID = 0;
+    for (auto libCell : mLibrary.allLibraryCells()) {
+        std::string cellName = libCell.getName();
+        for (auto libArc : libCell.allLibraryArcs()) {
+            auto timingLibArc = scenario->getTimingLibraryArc(libArc);
+            std::string timingSense = timingSense2Str(timingLibArc.getSense());
+            std::string fromPin = libArc.getFromName();
+            std::string toPin = libArc.getToName();
+            SqlRow row(table.getWidth());
+            row.insertValue(SqlValue(0, std::to_string(arcID)));
+            row.insertValue(SqlValue(1, fromPin));
+            row.insertValue(SqlValue(2, cellName));
+            row.insertValue(SqlValue(3, toPin));
+            row.insertValue(SqlValue(4, cellName));
+            row.insertValue(SqlValue(5, timingSense));
+            table.insertRow(row);
+
+            auto delayLut = timingLibArc.getDelayLut(Rsyn::TimingMode::EARLY, Rsyn::RISE);
+            auto slewLut = timingLibArc.getSlewLut(Rsyn::TimingMode::EARLY, Rsyn::RISE);
+            arcID++;
+        }
+    }
+    execInsert(table);
+}
+
+void DbFiller::fillLUT()
+{
+    Rsyn::DefaultTimingModel * timingModel = mSession.getService("rsyn.defaultTimingModel");
+    Rsyn::Scenario * scenario = mSession.getService("rsyn.scenario");
+    std::string lutTableName = "Timing_Arcs_LUT";
+    std::string lutValuesName = "Timing_Arcs_LUT_Value";
+    std::vector<std::string> lutValuesHeader {
+        "LUT_ID",
+        "Index_1",
+        "Index_2",
+        "value"
+    };
+
+    std::vector<std::string> lutHeaders {
+        "ID",
+        "Arc_ID",
+        "Table_Type"
+    };
+    SqlTable lutTable(lutTableName, lutHeaders);
+    SqlTable lutValuesTable(lutValuesName, lutValuesHeader);
+
+    int arcID = 0;
+    int lutID = 0;
+    for (auto libCell : mLibrary.allLibraryCells()) {
+        for (auto libArc : libCell.allLibraryArcs()) {
+            auto timingLibArc = scenario->getTimingLibraryArc(libArc);
+
+            auto cellRise= timingLibArc.getDelayLut(Rsyn::TimingMode::EARLY, Rsyn::RISE);
+            auto cellFall = timingLibArc.getDelayLut(Rsyn::TimingMode::EARLY, Rsyn::FALL);
+            auto riseTransition = timingLibArc.getSlewLut(Rsyn::TimingMode::EARLY, Rsyn::RISE);
+            auto fallTransition = timingLibArc.getSlewLut(Rsyn::TimingMode::EARLY, Rsyn::FALL);
+
+            SqlRow row0(lutTable.getWidth());
+            row0.insertValue(SqlValue(0, std::to_string(lutID)));
+            row0.insertValue(SqlValue(1, std::to_string(arcID)));
+            row0.insertValue(SqlValue(2, "cell_fall"));
+            fillLutValues(cellFall, lutID, lutValuesTable);
+            lutID++;
+
+            SqlRow row1(lutTable.getWidth());
+            row1.insertValue(SqlValue(0, std::to_string(lutID)));
+            row1.insertValue(SqlValue(1, std::to_string(arcID)));
+            row1.insertValue(SqlValue(2, "cell_rise"));
+            fillLutValues(cellRise, lutID, lutValuesTable);
+            lutID++;
+
+            SqlRow row2(lutTable.getWidth());
+            row2.insertValue(SqlValue(0, std::to_string(lutID)));
+            row2.insertValue(SqlValue(1, std::to_string(arcID)));
+            row2.insertValue(SqlValue(2, "fall_transition"));
+            fillLutValues(fallTransition, lutID, lutValuesTable);
+            lutID++;
+
+            SqlRow row3(lutTable.getWidth());
+            row3.insertValue(SqlValue(0, std::to_string(lutID)));
+            row3.insertValue(SqlValue(1, std::to_string(arcID)));
+            row3.insertValue(SqlValue(2, "rise_transition"));
+            fillLutValues(riseTransition, lutID, lutValuesTable);
+            lutID++;
+
+            arcID++;
+            lutTable.insertRow(row0);
+            lutTable.insertRow(row1);
+            lutTable.insertRow(row2);
+            lutTable.insertRow(row3);
+        }
+    }
+    execInsert(lutTable);
+    execInsert(lutValuesTable);
+}
+
+
+std::string DbFiller::timingSense2Str(const Rsyn::TimingSense& timingSense)
+{
+    std::string s;
+    switch(timingSense) {
+    case Rsyn::TimingSense::NEGATIVE_UNATE:
+        s = "negative";
+        break;
+
+    case Rsyn::TimingSense::POSITIVE_UNATE:
+        s = "positive";
+        break;
+    case Rsyn::TimingSense::NON_UNATE:
+        s = "non";
+        break;
+
+    default:
+        s = "invalid";
+        break;
+    }
+    return s;
+}
+
+
+void DbFiller::fillLutValues(ISPD13::LibParserLUT& lut, int lutID, SqlTable & table)
+{
+
+    int width = table.getWidth();
+    std::vector<double> loadIdx = lut.loadIndices;
+    std::vector<double> transIdx = lut.transitionIndices;
+    auto values = lut.tableVals;
+    int valuesRows = values.getNumRows();
+    int valuesCols = values.getNumCols();
+
+    for (int i = 0; i < valuesRows; ++i) {
+        for (int j = 0; j < valuesCols; j++) {
+            SqlRow row(width);
+            row.insertValue(SqlValue(0, std::to_string(lutID)));
+            row.insertValue(SqlValue(1, std::to_string(transIdx[i])));
+            row.insertValue(SqlValue(2, std::to_string(loadIdx[j])));
+            row.insertValue(SqlValue(3, std::to_string(values(i, j))));
+            table.insertRow(row);
+        }
+    }
 }
 
 
