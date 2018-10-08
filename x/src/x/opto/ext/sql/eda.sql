@@ -67,3 +67,29 @@ CREATE TABLE Net_CPin_Inst(
   PRIMARY KEY(Net_Name, CPin_Name, CPin_CName, Inst_Name)
 );
 
+CREATE TABLE Timing_Arcs(
+  ID                  INTEGER PRIMARY KEY,
+  From_Pin_Name       VARCHAR(255) NOT NULL,
+  From_Pin_Cell_Name  VARCHAR(255) NOT NULL,
+  To_Pin_Name         VARCHAR(255) NOT NULL,
+  To_Pin_Cell_Name    VARCHAR(255) NOT NULL,
+  timing_sense        VARCHAR(255) NOT NULL,
+  FOREIGN KEY(From_Pin_Name, From_Pin_Cell_Name) REFERENCES CPin(NAME, Cell_Name),
+  FOREIGN KEY(From_Pin_Name, From_Pin_Cell_Name) REFERENCES CPin(NAME, Cell_Name)
+);
+
+CREATE TABLE Timing_Arcs_LUT(
+  ID         INTEGER PRIMARY KEY,
+  Arc_ID     INTEGER NOT NULL,
+  Table_Type VARCHAR(255) NOT NULL,
+  FOREIGN KEY(Arc_ID) REFERENCES Timing_Arcs(ID)
+);
+
+CREATE TABLE Timing_Arcs_LUT_Value(
+  LUT_ID     INTEGER NOT NULL,
+  Index_1    FLOAT NOT NULL,
+  Index_2    FLOAT NOT NULL,
+  value      FLOAT NOT NULL,
+  FOREIGN KEY(LUT_ID) REFERENCES Timing_Arcs_LUT(ID),
+  PRIMARY KEY(LUT_ID, Index_1, Index_2)
+);
