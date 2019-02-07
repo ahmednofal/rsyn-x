@@ -5,6 +5,9 @@
 # Setup #
 #########
 
+# Debug build
+set(CMAKE_BUILD_TYPE RelWithDebInfo)
+
 # Specify the minimum version for CMake
 cmake_minimum_required(VERSION 2.8)
 
@@ -53,7 +56,6 @@ set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Werror=return-type")
 
 ######################
 # Check Dependencies #
-######################
 find_package(Boost COMPONENTS system filesystem program_options REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
@@ -233,3 +235,4 @@ target_link_libraries(rsyn
   pthread
   dl
 )
+

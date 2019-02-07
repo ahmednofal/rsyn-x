@@ -4,3 +4,5 @@ open "iccad2015" {
 	"targetUtilization" : 0.85,
 	"parms" : "ICCAD15.parm"
 };
+
+run "ext.DbProcess" {};
